@@ -20,13 +20,14 @@ at(0,X+DX,Y+DY,T) :- at(0,X,Y,T-1), move(DX,DY,T-1), time(T).
 at(N+1,X+DX,Y+DY,T) :- at(N+1,X,Y,T-1), at(0,X,Y,T), move(DX,DY,T-1), time(T).
 at(N,X,Y,T) :- at(N,X,Y,T-1), not at(0,X,Y,T), time(T), N!=0.
 
-%goal: uncovered(X,Y,T) :- init(target(X,Y)), not at(_,X,Y,T), time(T).
+%goal:
+uncovered(X,Y,T) :- init(target(X,Y)), not at(_,X,Y,T), time(T).
 goal(T) :- init(target(X,Y)), not uncovered(X,Y,T), not at(0,X,Y,T), time(T).
 goal :- goal(T).
 :- not goal.
 
 %#minimize{T : goal(T)}.
 
-#show move/3.
-#show goal/1.
-%#show at/4.
+%#show move/3.
+%#show goal/1.
+#show at/4.

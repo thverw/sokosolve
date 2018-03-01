@@ -1,10 +1,10 @@
 import sys
 import os
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from PyQt5 import QtGui, QtWidgets
+from PyQt5 import QtCore
 
 
-class SokoShow(QtGui.QApplication):
+class SokoShow(QtWidgets.QApplication):
     def main(self):
         indT = 0
 
@@ -165,9 +165,9 @@ class SokoShow(QtGui.QApplication):
 
         def showMap(mapping, boxes, targets, player):
             # map is a collection of info on schematics
-            # app = QtGui.QApplication(sys.argv)
-            w = QtGui.QWidget()
-            grid = QtGui.QGridLayout()
+            # app = QtWidgets.QApplication(sys.argv)
+            w = QtWidgets.QWidget()
+            grid = QtWidgets.QGridLayout()
             w.setLayout(grid)
             box = QtGui.QPixmap(os.getcwd() + '/Img/Box.png')
             empty = QtGui.QPixmap(os.getcwd() + '/Img/Empty.png')
@@ -178,36 +178,36 @@ class SokoShow(QtGui.QApplication):
             for x in range(len(mapping)):
                 for y in range(len(mapping[x])):
                     if mapping[x][y]:
-                        helplabel = QtGui.QLabel(w)
+                        helplabel = QtWidgets.QLabel(w)
                         helplabel.setPixmap(empty)
                         labellist += [helplabel]
                         grid.addWidget(helplabel, x, y)
                     else:
-                        helplabel = QtGui.QLabel(w)
+                        helplabel = QtWidgets.QLabel(w)
                         helplabel.setPixmap(wall)
                         labellist += [helplabel]
                         grid.addWidget(helplabel, x, y)
             for x in boxes:
-                helplabel = QtGui.QLabel(w)
+                helplabel = QtWidgets.QLabel(w)
                 helplabel.setPixmap(box)
                 labellist += [helplabel]
                 grid.addWidget(helplabel, x[1] - 1, x[0] - 1)
             for x in targets:
-                helplabel = QtGui.QLabel(w)
+                helplabel = QtWidgets.QLabel(w)
                 helplabel.setPixmap(target)
                 labellist += [helplabel]
                 grid.addWidget(helplabel, x[1] - 1, x[0] - 1)
-            helplabel = QtGui.QLabel(w)
+            helplabel = QtWidgets.QLabel(w)
             helplabel.setPixmap(guy)
             labellist += [helplabel]
             grid.addWidget(helplabel, player[1] - 1, player[0] - 1)
             # w.resize(boxpic.width(),boxpic.height())
-            button0 = QtGui.QPushButton("Previous Step", w)
-            button1 = QtGui.QPushButton("Next Step", w)
-            button2 = QtGui.QPushButton("From Beginning", w)
-            QtCore.QObject.connect(button0, QtCore.SIGNAL("clicked()"), handleB0)
-            QtCore.QObject.connect(button1, QtCore.SIGNAL("clicked()"), handleB1)
-            QtCore.QObject.connect(button2, QtCore.SIGNAL("clicked()"), handleB2)
+            button0 = QtWidgets.QPushButton("Previous Step", w)
+            button1 = QtWidgets.QPushButton("Next Step", w)
+            button2 = QtWidgets.QPushButton("From Beginning", w)
+            #QtCore.QObject.connect(button0, QtCore.SIGNAL("clicked()"), handleB0)
+            #QtCore.QObject.connect(button1, QtCore.SIGNAL("clicked()"), handleB1)
+            #QtCore.QObject.connect(button2, QtCore.SIGNAL("clicked()"), handleB2)
             grid.addWidget(button0, n[1] - 3, n[0])
             grid.addWidget(button1, n[1] - 2, n[0])
             grid.addWidget(button2, n[1] - 1, n[0])
@@ -251,7 +251,7 @@ class SokoShow(QtGui.QApplication):
         showMap(mapRepresentation, boxPos, targetPos, playerPosition)
 
     def __init__(self):
-        QtGui.QApplication.__init__(self, sys.argv)
+        QtWidgets.QApplication.__init__(self, sys.argv)
         self.main()
 
 
