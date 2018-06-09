@@ -1,9 +1,0 @@
-init(field((3;4),1)).
-init(field((1..7),2)).
-init(field((1;3;4;6;7),3)).
-init(field((1..4;6;7),4)).
-init(at(0,6,4)).
-init(at(1,6,2)).
-init(at(2,6,3)).
-init(target(2,4)).
-init(target(4,4)).
