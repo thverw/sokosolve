@@ -1,5 +1,5 @@
 def read_map():
-    f = open('newinstance02.lp', 'r')
+    f = open('InstancesClean/Inst-A+Z20-4Halle.lp', 'r')
     sr = f.read()
     # f = open('atlist','r')
 
@@ -95,11 +95,9 @@ def read_map():
             indexTargets += 1
     if playerPosition == None:
         exit('no player position')
-    f = open('action_plan.txt','r')
+    f = open('Stuff/action_plan.txt','r')
     sr = f.read()
     at_string_arr = sr.split(" ")
-
-    print(at_string_arr)
     # cut line end
     at_string_arr[len(at_string_arr)-1] = at_string_arr[len(at_string_arr)-1][:len(at_string_arr[len(at_string_arr)-1])-1]
 
