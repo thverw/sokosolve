@@ -2,7 +2,6 @@
 #include <incmode>.
 
 #program base.
-
 dir(1,0;;0,1;;-1,0;;0,-1).
 at(N,X,Y,0) :- init(at(N,X,Y)).
 
