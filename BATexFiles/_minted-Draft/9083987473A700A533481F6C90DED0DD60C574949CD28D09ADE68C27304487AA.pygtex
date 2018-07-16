@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{time}\PYG{p}{(}\PYG{l+m+mf}{0.}\PYG{p}{.}\PYG{n}{horizon}\PYG{p}{).}
+
+\PYG{n}{dir}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{;}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{).}
+\PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{init}\PYG{p}{(}\PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{))}
+
+\PYG{c}{\PYGZpc{} pick one direction to move in}
+\PYG{l+m+mi}{1} \PYG{p}{\PYGZob{}} \PYG{n}{move}\PYG{p}{(}\PYG{n}{DX}\PYG{p}{,}\PYG{n}{DY}\PYG{p}{,}\PYG{n}{T}\PYG{p}{)} \PYG{p}{:} \PYG{n}{dir}\PYG{p}{(}\PYG{n}{DX}\PYG{p}{,}\PYG{n}{DY}\PYG{p}{)} \PYG{p}{\PYGZcb{}} \PYG{l+m+mi}{1} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+\PYG{c}{\PYGZpc{} move the player}
+\PYG{n}{at}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{X}\PYG{o}{+}\PYG{n}{DX}\PYG{p}{,}\PYG{n}{Y}\PYG{o}{+}\PYG{n}{DY}\PYG{p}{,}\PYG{n}{T}\PYG{p}{)} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{at}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{move}\PYG{p}{(}\PYG{n}{DX}\PYG{p}{,}\PYG{n}{DY}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+\PYG{c}{\PYGZpc{} move box, the player collides with}
+\PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{X}\PYG{o}{+}\PYG{n}{DX}\PYG{p}{,}\PYG{n}{Y}\PYG{o}{+}\PYG{n}{DY}\PYG{p}{,}\PYG{n}{T}\PYG{p}{)} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{at}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{move}\PYG{p}{(}\PYG{n}{DX}\PYG{p}{,}\PYG{n}{DY}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+\PYG{c}{\PYGZpc{} leave boxes that aren\PYGZsq{}t touched at their place with t+1}
+\PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{)} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{not} \PYG{n}{at}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{N}!\PYG{p}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+\PYG{c}{\PYGZpc{} there can\PYGZsq{}t be boxes, players, where there is no field}
+\PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{not} \PYG{n}{init}\PYG{p}{(}\PYG{n}{field}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{)),} \PYG{n}{at}\PYG{p}{(}\PYG{n}{\PYGZus{}}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{\PYGZus{}}\PYG{p}{).}
+\PYG{c}{\PYGZpc{} there can\PYGZsq{}t be two boxes/players, at the same spot}
+\PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{at}\PYG{p}{(}\PYG{n}{N}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{at}\PYG{p}{(}\PYG{n}{M}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{N}!\PYG{p}{=}\PYG{n}{M}\PYG{p}{,} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+
+\PYG{n}{uncovered}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{)} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{init}\PYG{p}{(}\PYG{n}{target}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{)),} \PYG{n}{not} \PYG{n}{at}\PYG{p}{(}\PYG{n}{\PYGZus{}}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+\PYG{n}{goal}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{)} \PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{init}\PYG{p}{(}\PYG{n}{target}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{)),} \PYG{n}{not} \PYG{n}{uncovered}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{not} \PYG{n}{at}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{T}\PYG{p}{),} \PYG{n}{time}\PYG{p}{(}\PYG{n}{T}\PYG{p}{).}
+\PYG{p}{:}\PYG{o}{\PYGZhy{}} \PYG{n}{not} \PYG{n}{goal}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{,}\PYG{n}{horizon}\PYG{p}{),} \PYG{n}{init}\PYG{p}{(}\PYG{n}{target}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,}\PYG{n}{Y}\PYG{p}{)).}
+
+\PYGZsh{}\PYG{n}{show} \PYG{n}{at}\PYG{o}{/}\PYG{l+m+mf}{4.}
+\end{Verbatim}
