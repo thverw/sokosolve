@@ -26,7 +26,7 @@ def main(prg):
 		    parts.append(("base", []))
 		prg.ground(parts)
 		prg.assign_external(clingo.Function("query", [step]), True)
-		if(step < 50):
+		if(step < 10):
 			ret, step = None, step+1
 			print(step)
 		else:

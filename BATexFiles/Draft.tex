@@ -1,5 +1,5 @@
 \documentclass{report}
-\title{Title}
+\title{Efficient Planning for Sokoban with Answer Set Programming - A Case Study}
 \author{Thomas Verweyen}
 \date{\today}
 \usepackage{listings}
@@ -15,10 +15,10 @@ commentstyle=\color{green}}
 \renewcommand*\contentsname{Summary}
 \tableofcontents
 \section*{Abstract}
-Sokoban approach with ASP planning -$>$ Plain, Inc, Optimization (?)
+Sokoban approach with ASP planning $\rightarrow$ PlainEnc, IncEnc, Optimization (?)
 \chapter{Introduction}
-What do i do? I'm working on the Sokoban problem and trying to do my best to find a fast and easy solution to it. I'm not working on any level but just the ones meeting some criteria. I'm picking qualitative and quantitative characteristics and deciding on some values to examine. My encodings are supposed to work better on some of the instances and worse on others. What rules describe those fluctuations? Is there a trend when comparing runtimes to my qualitative and quantitative characteristics? E.g. you would expect the runtime to go up when the instance's size grows or when the amount of boxes in the level grows.
-In this thesis I will work on optimizing ASP encodings for the game Sokoban towards different instances.
+What do i do? I'm working on the Sokoban problem and trying to do my best to find a fast and easy solution to it. I'm not working on any level but just the ones meeting some criteria. I'm picking qualitative and quantitative characteristics and deciding on some values to examine. My encodings are supposed to work better on some of the instances and worse on others. What rules describe those fluctuations? What assumptions can be made? Is there a trend when comparing runtimes to my qualitative and quantitative characteristics? E.g. you would expect the runtime to go up when the instance's size grows or when the amount of boxes in the level grows.
+In this thesis I will work on optimizing ASP encodings for the game Sokoban towards different instances. First Ill briefly explain what Sokoban is and how it is played, then Ill give a short introduction on comparable/similar/other scientific studies concerning sokoban. Then Ill go over my work, ... and finally evaluation and Discussion of Results.
 \chapter{What is Sokoban}
 Sokoban is a logistics game, where the player controls a character in a warehouse. The goal of the game is to move all crates in the warehouse on one of the target fields. The rules state that crates cannot be stacked on one field and crates cannot be pushed if there is a crate or a wall blocking the way. Each player move is a step into one of the four directions in a two-dimensional grid. If the player would collide with a crate, the crate is pushed into the direction of the player-movement. A level is usually satisfied when each crate is pushed on a target; also we can conclude that each target would be covered with a crate, because the amount of targets and crates is equal.
 \chapter{State of the Art}
@@ -36,13 +36,15 @@ show my experiments and their results
 \section{Encodings}
 \subsection{Plain Encoding}
 \lstinputlisting{../Encodings/SokobanPlainEncoding.lp}
-The first try to construct a naive encoding to solve sokoban-instances yielded a solution that works in a common way in ASP planning. In line 4 we initialize the information from the level instance with the time 0. In line 7 we state the there is one move at minimum and at maximum for each timestep. This makes the ASP planner guess the sequence of moves and infer every successive state from the moves it picks. In lines 9-13 we calculate the successor state from the move picked in line 7. Line 9 calculates the new player-position, line 11 calculates the new position of the box in the players way and line 13 calculates the new position of boxes not touched by the player. Additionally we need some integrity constraints to prevent illegal states. The integrity constraint in line 15 ensures that at no time a box or player has a position outside of the playing field. The integrity constraint in line 17 ensures that at no time boxes or the player share one field.
+The first try to construct a naive encoding to solve sokoban-instances yielded a solution that works in a common way in ASP planning. In line 4 we initialize the information from the level instance with the time 0. In line 7 we state that there is one move at minimum and at maximum for each timestep. This makes the ASP planner ground all sequences of moves, pick one for every timestep and infer every successive state from the moves it picks. In lines 9-13 we calculate the successor state from the move picked in line 7. Line 9 calculates the new player-position, line 11 calculates the new position of the box in the players way and line 13 calculates the new position of boxes not touched by the player. Additionally we need some integrity constraints to prevent illegal states. The integrity constraint in line 15 ensures that at no time a box or player has a position outside of the playing field. The integrity constraint in line 17 ensures that at no time boxes or the player share one field.
 In the lines 19-21 we define our win-condition to be that all targets in the instance have to be covered by boxes.
 The Plain Encoding has the predicates, time/1, dir/2, at/4, move/3, uncovered/3, goal/3
 The encoding works in a common way in ASP planning, by guessing the sequence of actions and inferring the successor states by effect axioms. There is a time/1 predicate for every timestep and a at/4 predicate for every box and the player at every timestep.
+
 \subsection{Incremental Encoding}
 \lstinputlisting{../Encodings/SokobanPlainEncodingInc.lp}
-The incremental encoding is similar to the plain encoding. The difference is the partition of the encoding into three parts: the \#program base in lines 3-5 which is independent of the step parameter t, the \#program step in lines 7-19 which is the cumulative part, collecting knowledge and the \#program check in lines 21-25 which is specific for each value of t. This allows for gradually processing each time step and accumulating knowledge that persists even if the current step is not satisfiable.
+The incremental encoding is similar to the plain encoding. The difference is the partition of the encoding into three parts: the \#program base in lines 3-5 which is independent of the step parameter t, the \#program step in lines 7-19 which is the cumulative part, collecting knowledge and the \#program check in lines 21-25 which is specific for each value of t (STEP ALSO IS THOUGH). This allows for gradually processing each time step and accumulating knowledge that persists even if the current step is not satisfiable.
+
 \subsection{Advanced Encoding}
 \lstinputlisting{../Encodings/SokobanPlainEncodingOpti.lp}
 \section{Evaluation}
