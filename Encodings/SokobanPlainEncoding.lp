@@ -1,7 +1,7 @@
 time(0..horizon).
 
 dir(1,0;0,1;-1,0;0,-1).
-at(N,X,Y,0) :- init(at(N,X,Y))
+at(N,X,Y,0) :- init(at(N,X,Y)).
 
 % pick one direction to move in
 1 { move(DX,DY,T) : dir(DX,DY) } 1 :- time(T).
