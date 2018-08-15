@@ -1,5 +1,22 @@
 time(0..horizon).
-
+eleA(1;4).
+eleB(2;5).
+ele1(1;5).ele2(2;4).
+ele(1;2;4;5).
+yo(10 ** 11).
+%sum(C,0,0,C) :- ele(C).
+sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleA(B),eleA(C).
+sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleB(B),eleB(C).
+sum(B*10+C,0,B,C) :- sum(B,0,0,B),ele1(B),ele1(C).
+sum(B*10+C,0,B,C) :- sum(B,0,0,B),ele2(B),ele2(C).
+sum(A*100+B*10+C,A,B,C) :- eleA(A),eleA(B),eleA(C).
+sum(A*100+B*10+C,A,B,C) :- eleB(A),eleB(B),eleB(C).
+sum(A*100+B*10+C,A,B,C) :- ele1(A),ele1(B),ele1(C).
+sum(A*100+B*10+C,A,B,C) :- ele2(A),ele2(B),ele2(C).
+sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), ele1(X), ele1(Y), ele1(B), A<(10 ** horizon).
+sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), ele2(X), ele2(Y), ele2(B), A<(10 ** horizon).
+sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), eleA(X), eleA(Y), eleA(B), A<(10 ** horizon).
+sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), eleB(X), eleB(Y), eleB(B), A<(10 ** horizon).
 
 
 
@@ -37,9 +54,9 @@ time(0..horizon).
 %:- at(N,X,Y,T), at(M,X,Y,T), N>M, time(T).
 %dirPos(1;-1).
 %:- 3 #sum {1,1 : at(A,X+DX,Y,T), A>0 ; 1,1 : not init(field(X+DX,Y)) ;
-            1,2 : at(B,X,Y+DY,T), B>0 ; 1,2 : not init(field(X,Y+DY)) ;
-            1,3 : at(C,X+DX,Y+DY,T), C>0 ; 1,2 : not init(field(X+DX,Y+DY)) },
-            dirPos(DX), dirPos(DY), at(N,X,Y,T), N>0, time(T).
+%            1,2 : at(B,X,Y+DY,T), B>0 ; 1,2 : not init(field(X,Y+DY)) ;
+%            1,3 : at(C,X+DX,Y+DY,T), C>0 ; 1,2 : not init(field(X+DX,Y+DY)) },
+%            dirPos(DX), dirPos(DY), at(N,X,Y,T), N>0, time(T).
 
 
 
