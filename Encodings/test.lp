@@ -3,7 +3,7 @@ eleA(1;4).
 eleB(2;5).
 ele1(1;5).ele2(2;4).
 ele(1;2;4;5).
-yo(10 ** 11).
+yo(4 ** 15).
 %sum(C,0,0,C) :- ele(C).
 sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleA(B),eleA(C).
 sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleB(B),eleB(C).

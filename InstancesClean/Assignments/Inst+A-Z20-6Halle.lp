@@ -9,9 +9,9 @@ init(at(3,3,1)).
 init(at(4,3,3)).
 init(at(5,4,2)).
 init(at(6,4,4)).
-init(target(1,4)).
-init(target(2,1)).
-init(target(3,4)).
-init(target(4,1)).
-init(target(5,3)).
-init(target(5,4)).
+init(target(1,1,4)).
+init(target(3,2,1)).
+init(target(2,3,4)).
+init(target(5,4,1)).
+init(target(4,5,3)).
+init(target(6,5,4)).

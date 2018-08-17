@@ -30,3 +30,5 @@ covered(X,Y,T) :- init(target(X,Y)), atX(N,X,T), atY(N,Y,T), time(T).
 goal(X,Y,T) :- init(target(X,Y)), covered(X,Y,T), { atX(0,X,T) ; atY(0,Y,T) } 1, time(T).
 :- not goal(X,Y,horizon), init(target(X,Y)).
 
+#hide.
+#show at/4.
