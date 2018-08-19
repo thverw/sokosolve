@@ -1,4 +1,4 @@
-\documentclass{report}
+\documentclass{article}
 \title{Efficient Planning for Sokoban with Answer Set Programming - A Case Study}
 \author{Thomas Verweyen}
 \date{\today}
@@ -19,30 +19,43 @@ commentstyle=\color{green}}
 \section*{Abstract}
 Sokoban approach with ASP planning $\rightarrow$ PlainEnc, IncEnc, Optimization (?)
 \section{Introduction}
+TODO: REWORK THIS
 What do i do? I'm working on the Sokoban problem and trying to do my best to find a fast and easy solution to it. I'm not working on any level but just the ones meeting some criteria. I'm picking qualitative and quantitative characteristics and deciding on some values to examine. My encodings are supposed to work better on some of the instances and worse on others. What rules describe those fluctuations? What assumptions can be made? Is there a trend when comparing runtimes to my qualitative and quantitative characteristics? E.g. you would expect the runtime to go up when the instance's size grows or when the amount of boxes in the level grows.
 In this thesis I will work on optimizing ASP encodings for the game Sokoban towards different instances. First Ill briefly explain what Sokoban is and how it is played, then Ill give a short introduction on comparable/similar/other scientific studies concerning sokoban. Then Ill go over my work, ... and finally evaluation and Discussion of Results.
 \section{What is Sokoban}
 \subsection{Background}
 %% ZU KURZ, MIR FEHLT EIN BISSCHEN LORE (SOKOBAN HEISST WARENHAUSMANN, ENTWICKELT VON.., ...) UND EIN BISSCHEN FORMALITÄT (VGL \cite{Froleyks2017UsingAA})
-Sokoban is a logistic planning puzzle game from Japan. Sokoban was apparently created by Hiroyuki Imabayashi in 1981, and published by \textit{Thinking Rabbit} in 1982. Sokoban means warehouse person in japanese. The game has very simple rules but shows to be very complex for humans and for AI.
-LOT OF RESEARCH REGARDING THAT (SO COMPLEX, SO EXEMPLARY, SO RELATABLE TO REAL LIFE AI PROBLEMS, SO EASY TO RESEARCH)
+Sokoban is a logistic planning puzzle game from Japan. Sokoban was apparently created by Hiroyuki Imabayashi in 1981, and published by \textit{Thinking Rabbit} in 1982. Sokoban means warehouse person in japanese. The game has very simple rules but shows to be very complex for humans and for AI. This makes Sokoban a very interesting subject for research regarding planning problems.
+%LOT OF RESEARCH REGARDING THAT (SO COMPLEX, SO EXEMPLARY, SO RELATABLE TO REAL LIFE AI PROBLEMS, SO EASY TO RESEARCH)
 \subsection{Rules}
 \begin{center}
 \includegraphics[scale=0.2]{SokobanLevel1}
 \newline
 \textbf{\textit{Fig.1: First of the Classical Sokoban Levels}}
 \end{center}
-Figure 1 illustrates the first Sokoban level of the original set of levels. The game is played on a board that can be modelled as a two-dimensional grid. The squares can either be floor or wall squares. Some floor squares are marked as goals and the same number of floor squares contain boxes. The player pushes boxes around this modelled warehouse, trying to cover all of the marked goal fields with one of the boxes. For that the player can move one step at a time into one of the four directions \textit{up}, \textit{down}, \textit{left} and \textit{right}. When the player moves onto a box's position the box is pushed one field into the direction of the move. There can never be multiple boxes on one field, neither can there be a box where there is no field.
+Figure 1 illustrates the first Sokoban level of the original set of levels. The game is played on a board that can be modelled as a two-dimensional grid. The squares can either be floor or wall squares. Some floor squares are marked as goals and the same number of floor squares contain boxes. The player pushes boxes around this modelled warehouse, trying to cover the marked goal fields (targets) with one of the boxes. For that the player can move one step at a time into one of the four directions \textit{up}, \textit{down}, \textit{left} and \textit{right}. When the player moves onto a box's position the box is pushed one field into the direction of the move. There can never be multiple boxes on one field, neither can there be a box where there is no field. A \textit{solution} to a level is a sequence of moves that leaves a box on each target.
 In many of the levels created to this date, the warehouse has a lot of small passageways and very intricate designs. In this thesis I will look at more open level designs, e.g. rectangular levels.
 Sokoban is a very difficult planning problem for multiple reasons. There are a lot of possibilities to create a deadlock (a gamestate from which no solution can be found), the branching factor is large and the optimal solution can be very long \cite{BoteaHeuristicsVsPlanning}.
 
 %Sokoban is a logistics game, where the player controls a character in a warehouse. The goal of the game is to move all crates in the warehouse on one of the target fields. The rules state that crates cannot be stacked on one field and crates cannot be pushed if there is a crate or a wall blocking the way. Each player move is a step into one of the four directions in a two-dimensional grid. If the player would collide with a crate, the crate is pushed into the direction of the player-movement. A level is usually satisfied when each crate is pushed on a target; also we can conclude that each target would be covered with a crate, because the amount of targets and crates is equal.
 \section{State of the Art}
+Gordon Wilfong published 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard} by reducing 3Sat to such a problem. He didnt answer the question whether Sokoban is also PSPACE-complete. That was answered by Joseph C Culberson \cite{PSpaceComplete} in 1997. He showed that it is possible to emulate a linear bounded automaton by constructing a level. The solution to this constructed level, if there is any, will have a length in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made. This shows PSPACE-completeness
 
-- mention other works on Sokoban
-- what tests?
-- what results?
-- whats the connection?
+Heuristics doesnt seem to do a great deal for sokoban \cite{BoteaHeuristicsVsPlanning}. It helped a lot with chess e.g., but doesnt cut it for sokoban. Approach the hard domain of sokoban in another way. Macromoves a way that really works well and is used in practice, also deadlock detection (WHAT IS A DEADLOCK - stone in corner and no goal -> no solutions) (obviously best if you know the specific level). Reference Rolling stone (source not available (?)). Furthermore Sokoban can be abstracted into rooms and tunnels, making it into subproblems which should be easier to solve, tunnels for example, are mostly immediately solved. Similarly you can also use relevance cutting. This means creating a measurement for relevance in between moves and picking moves that are relevant to prior moves (few exceptions in special cases).
+Backwards Approach and LexOrdering.
+Conclusion
+%Sokoban was researched to be PSPACE-complete and NP-hard. PSPACE-complete was done by constructing levels that are PSPACE-complete (look at the work again!!). Heuristic seems to be of little use, so go for planning instead [botea]
+%Sokoban can be abstracted into subproblems to get more smaller problems, greatly reducing searchspace.
+%This also makes sense in relevance cutting, which looks at relations between boxes to find groups that behave together and cleanly separate those.
+%Alternatively Backwards Approach
+%Or LexOrdering
+%All in all a Plethora of different approaches to crack the problems of sokoban.
+
+
+%- mention other works on Sokoban
+%- what tests?
+%- what results?
+%- whats the connection?
 \section{My Work}
 what did i do?
 what is my baseline?
@@ -127,6 +140,11 @@ Journal of Theoretical Computing Science, 1999, Vol. 252, p.1-2.
 Brahim Hnich, Zeynep Kiziltan, Toby Walsh
 \textit{Combining Symmetry Breaking with Other Constraints: Lexicographic Ordering with Sums}
 ISAIM, 2004.
+
+\bibitem{WilfongNPhard}
+Gordon Wilfong
+\textit{Motion planning in the presence of movable obstacles}
+Annals of Mathematics and Artificial Intelligence, 1991.
 \end{thebibliography}
 
 
