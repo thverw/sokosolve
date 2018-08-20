@@ -3,12 +3,12 @@
 \contentsline {subsection}{\numberline {2.1}Background}{2}
 \contentsline {subsection}{\numberline {2.2}Rules}{2}
 \contentsline {section}{\numberline {3}State of the Art}{3}
-\contentsline {section}{\numberline {4}My Work}{4}
-\contentsline {subsection}{\numberline {4.1}Encodings}{4}
-\contentsline {subsubsection}{\numberline {4.1.1}Fact Format}{4}
-\contentsline {subsubsection}{\numberline {4.1.2}Plain Encoding}{4}
-\contentsline {subsubsection}{\numberline {4.1.3}Incremental Encoding}{5}
-\contentsline {subsubsection}{\numberline {4.1.4}Advanced Encoding}{6}
-\contentsline {subsection}{\numberline {4.2}Evaluation}{7}
-\contentsline {subsection}{\numberline {4.3}Experiments and Results}{7}
-\contentsline {section}{\numberline {5}Discussion of Results}{7}
+\contentsline {section}{\numberline {4}My Work}{5}
+\contentsline {subsection}{\numberline {4.1}Encodings}{5}
+\contentsline {subsubsection}{\numberline {4.1.1}Fact Format}{5}
+\contentsline {subsubsection}{\numberline {4.1.2}Plain Encoding}{5}
+\contentsline {subsubsection}{\numberline {4.1.3}Incremental Encoding}{6}
+\contentsline {subsubsection}{\numberline {4.1.4}Advanced Encoding}{7}
+\contentsline {subsection}{\numberline {4.2}Evaluation}{8}
+\contentsline {subsection}{\numberline {4.3}Experiments and Results}{8}
+\contentsline {section}{\numberline {5}Discussion of Results}{8}

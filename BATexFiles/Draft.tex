@@ -19,7 +19,7 @@ commentstyle=\color{green}}
 \section*{Abstract}
 Sokoban approach with ASP planning $\rightarrow$ PlainEnc, IncEnc, Optimization (?)
 \section{Introduction}
-TODO: REWORK THIS
+%%%%TODO: REWORK THIS
 What do i do? I'm working on the Sokoban problem and trying to do my best to find a fast and easy solution to it. I'm not working on any level but just the ones meeting some criteria. I'm picking qualitative and quantitative characteristics and deciding on some values to examine. My encodings are supposed to work better on some of the instances and worse on others. What rules describe those fluctuations? What assumptions can be made? Is there a trend when comparing runtimes to my qualitative and quantitative characteristics? E.g. you would expect the runtime to go up when the instance's size grows or when the amount of boxes in the level grows.
 In this thesis I will work on optimizing ASP encodings for the game Sokoban towards different instances. First Ill briefly explain what Sokoban is and how it is played, then Ill give a short introduction on comparable/similar/other scientific studies concerning sokoban. Then Ill go over my work, ... and finally evaluation and Discussion of Results.
 \section{What is Sokoban}
@@ -28,46 +28,58 @@ In this thesis I will work on optimizing ASP encodings for the game Sokoban towa
 Sokoban is a logistic planning puzzle game from Japan. Sokoban was apparently created by Hiroyuki Imabayashi in 1981, and published by \textit{Thinking Rabbit} in 1982. Sokoban means warehouse person in japanese. The game has very simple rules but shows to be very complex for humans and for AI. This makes Sokoban a very interesting subject for research regarding planning problems.
 %LOT OF RESEARCH REGARDING THAT (SO COMPLEX, SO EXEMPLARY, SO RELATABLE TO REAL LIFE AI PROBLEMS, SO EASY TO RESEARCH)
 \subsection{Rules}
-\begin{center}
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.2]{SokobanLevel1}
-\newline
-\textbf{\textit{Fig.1: First of the Classical Sokoban Levels}}
-\end{center}
-Figure 1 illustrates the first Sokoban level of the original set of levels. The game is played on a board that can be modelled as a two-dimensional grid. The squares can either be floor or wall squares. Some floor squares are marked as goals and the same number of floor squares contain boxes. The player pushes boxes around this modelled warehouse, trying to cover the marked goal fields (targets) with one of the boxes. For that the player can move one step at a time into one of the four directions \textit{up}, \textit{down}, \textit{left} and \textit{right}. When the player moves onto a box's position the box is pushed one field into the direction of the move. There can never be multiple boxes on one field, neither can there be a box where there is no field. A \textit{solution} to a level is a sequence of moves that leaves a box on each target.
+\caption{First of the Classical Sokoban Levels}
+\label{fig:1}
+\end{figure}
+Figure \ref{fig:1} illustrates the first Sokoban level of the original set of levels. The game is played on a board that can be modelled as a two-dimensional grid. The squares can either be floor or wall squares. Some floor squares are marked as goals and the same number of floor squares contain boxes. The player pushes boxes around this modelled warehouse, trying to cover the marked goal fields (targets) with one of the boxes. For that the player can move one step at a time into one of the four directions \textit{up}, \textit{down}, \textit{left} and \textit{right}. When the player moves onto a box's position the box is pushed one field into the direction of the move. There can never be multiple boxes on one field, neither can there be a box where there is no field. A \textit{solution} to a level is a sequence of moves that leaves a box on each target.
 In many of the levels created to this date, the warehouse has a lot of small passageways and very intricate designs. In this thesis I will look at more open level designs, e.g. rectangular levels.
 Sokoban is a very difficult planning problem for multiple reasons. There are a lot of possibilities to create a deadlock (a gamestate from which no solution can be found), the branching factor is large and the optimal solution can be very long \cite{BoteaHeuristicsVsPlanning}.
 
 %Sokoban is a logistics game, where the player controls a character in a warehouse. The goal of the game is to move all crates in the warehouse on one of the target fields. The rules state that crates cannot be stacked on one field and crates cannot be pushed if there is a crate or a wall blocking the way. Each player move is a step into one of the four directions in a two-dimensional grid. If the player would collide with a crate, the crate is pushed into the direction of the player-movement. A level is usually satisfied when each crate is pushed on a target; also we can conclude that each target would be covered with a crate, because the amount of targets and crates is equal.
 \section{State of the Art}
+\paragraph*{•}
 \textbf{Complexity:} Gordon Wilfong published in 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard}. He proved this by reducing $3$-$Sat$ to such a problem. The question whether Sokoban is PSPACE-complete remained open until 1997, when Joseph C. Culberson published his paper "Sokoban is PSPACE-complete" \cite{PSpaceComplete}. He found a transformation algorithm to transform an LBA into a level of Sokoban, with the solution to the level having a number of steps in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made. %This shows PSPACE-hardness and Sokoban is known to be in PSPACE, so Sokoban is PSPACE-complete.
-\newline%He didnt answer the question whether Sokoban is also PSPACE-complete. That was answered by Joseph C Culberson \cite{PSpaceComplete} in 1997. He showed that it is possible to emulate a linear bounded automaton by constructing a level. The solution to this constructed level, if there is any, will have a length in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made. This shows PSPACE-completeness
+%He didnt answer the question whether Sokoban is also PSPACE-complete. That was answered by Joseph C Culberson \cite{PSpaceComplete} in 1997. He showed that it is possible to emulate a linear bounded automaton by constructing a level. The solution to this constructed level, if there is any, will have a length in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made. This shows PSPACE-completeness
+\paragraph*{•}
 \textbf{Approaches:} There are loads of different researches regarding approaches to Sokoban. I decided which to show. Botea et al. found out that heuristics, while significantly improving chess AI, do not seem to help for planning the soko puzzle \cite{BoteaHeuristicsVsPlanning}. Planning would be a better approach. So to get there and create good plans like humans would, the solver will start meta-reasoning by recognizing rooms and tunnels. Then using those rooms and tunnels to create a plan where first a way is found to bring the crates from the room where theyre at to the target room. Then another plan is made to organize crates in a room.
-\newline
+\paragraph*{•}
 \textbf{Macromoves:} Macromoves are a planning strategy that is so successful it is implemented in several good Sokoban solvers. The best example would be Rolling Stone, an excellent Sokoban solver, with a lot of optimizations implemented. One of the optimizations is the possibility to create macromoves for tunnels to reduce all states in the tunnel to one or two, reducing the search space severely.
-\newline
-\textbf{Deadlock Detection:} 
+\paragraph*{•}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{flipped,deadlockexample}
+\caption{Deadlock example}
+\label{fig:2}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{deadlocktypes}
+\caption{Deadlock types}
+\label{fig:3}
+\end{figure}
+\textbf{Deadlock Detection:} Deadlocks are states from which no solution can be found. A trivial example for a deadlock (see Figure \ref{fig:2}) is a box pushed into a corner with no target under it. The box cannot be pulled, so it cannot be recovered from the corner, but to find a solution all boxes have to be covering a target.
+Detecting deadlocks the moment they appear is a very powerful optimization, for the reason that huge parts of the search tree can be eliminated early on, without further looking into them. The problem with this strategy is that deadlocks can be very hard to detect, e.g. when they consist of multiple boxes blocking each other in some kind of tunnelsystem. Deadlocks are easier to detect and remove from the search tree when the domain is restricted. When looking at levels with a rectangular shape there are four common deadlocks, cp. Fig. \ref{fig:3}.
+\paragraph*{•}
+%% A: Box in Corner, B: Doublebox on wall, C: Three boxes on corner, D: Four boxes building a square
 %What is a Deadlock, with picture. Why do you detect those? How do you detect those? Better when you know the level or know basic deadlocks to look for. In the halls without tunnels it should be less hard
-\textbf{Relevance Cutting:}
-\newline
-\textbf{Lexicographical Ordering:}
-\newline
-
-Heuristics doesnt seem to do a great deal for sokoban \cite{BoteaHeuristicsVsPlanning}. It helped a lot with chess e.g., but doesnt cut it for sokoban. Approach the hard domain of sokoban in another way. Macromoves a way that really works well and is used in practice, also deadlock detection (WHAT IS A DEADLOCK - stone in corner and no goal -> no solutions) (obviously best if you know the specific level). Reference Rolling stone (source not available (?)). Furthermore Sokoban can be abstracted into rooms and tunnels, making it into subproblems which should be easier to solve, tunnels for example, are mostly immediately solved. Similarly you can also use relevance cutting. This means creating a measurement for relevance in between moves and picking moves that are relevant to prior moves (few exceptions in special cases).
-Backwards Approach and LexOrdering.
-Conclusion
+\textbf{Relevance Cutting:} A basic AI to solve a planning problem like Sokoban will look at all possible ways to move around the level, but some of those are dubious but legal or just plain irrelevant. In a lot of cases those dubious ways do not lead to an optimal solution, but of course a problem can be constructed where the optimal solution can only be found when looking at those dubious cases. So Junghanns and Schaeffer tried to teach their AI meta-reasoning to give it the ability to know when to look at those dubious ways and when to ignore them. This they did by creating an influence measurement and only taking moves that are influenced by prior moves, to prevent actions that are disembodied from all prior moves (and seem irrelevant).
+%Relevance Cutting tries to remove the problem of really stupid AI moves, like lrlrlrlrlrlrlr, by trying to teach the AI to know relevance, by teaching it influence of one move over another. This means that the moves can't be without any connection to each other and that the AI can realize that two parts of the puzzle have no influence on each other implying that order between the parts doesnt matter. the approach is statistic not dynamic which makes it rather simple and improvable.
+%Heuristics doesnt seem to do a great deal for sokoban \cite{BoteaHeuristicsVsPlanning}. It helped a lot with chess e.g., but doesnt cut it for sokoban. Approach the hard domain of sokoban in another way. Macromoves a way that really works well and is used in practice, also deadlock detection (WHAT IS A DEADLOCK - stone in corner and no goal -> no solutions) (obviously best if you know the specific level). Reference Rolling stone (source not available (?)). Furthermore Sokoban can be abstracted into rooms and tunnels, making it into subproblems which should be easier to solve, tunnels for example, are mostly immediately solved. Similarly you can also use relevance cutting. This means creating a measurement for relevance in between moves and picking moves that are relevant to prior moves (few exceptions in special cases).Backwards Approach and LexOrdering.Conclusion
 %Sokoban was researched to be PSPACE-complete and NP-hard. PSPACE-complete was done by constructing levels that are PSPACE-complete (look at the work again!!). Heuristic seems to be of little use, so go for planning instead [botea]
 %Sokoban can be abstracted into subproblems to get more smaller problems, greatly reducing searchspace.
 %This also makes sense in relevance cutting, which looks at relations between boxes to find groups that behave together and cleanly separate those.
 %Alternatively Backwards Approach
 %Or LexOrdering
 %All in all a Plethora of different approaches to crack the problems of sokoban.
-
-
 %- mention other works on Sokoban
 %- what tests?
 %- what results?
 %- whats the connection?
 \section{My Work}
+In 
 what did i do?
 what is my baseline?
 what changes from encoding to encoding
