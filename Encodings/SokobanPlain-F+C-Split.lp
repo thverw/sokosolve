@@ -6,6 +6,10 @@ at(N,X,Y,0) :- init(at(N,X,Y)).
 
 % pick one direction to move in
 1 { move(DX,DY,T) : dir(DX,DY) } 1 :- time(T).
+:- move(DX,_,T), DX>0, at(0,dimX,_,T-1), time(T).
+:- move(_,DY,T), DY>0, at(0,_,dimY,T-1), time(T).
+:- move(DX,_,T), DX<0, at(0,1,_,T-1), time(T).
+:- move(_,DY,T), DY<0, at(0,_,1,T-1), time(T).
 % move the player
 at(0,X+DX,Y+DY,T) :- at(0,X,Y,T-1), move(DX,DY,T), time(T).
 % move box, the player collides with %%% BOXMOVE IS NEW

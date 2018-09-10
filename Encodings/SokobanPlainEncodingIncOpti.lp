@@ -17,6 +17,8 @@ dir( 1,0 ; 0,1 ; -1,0 ; 0,-1 ).
 at(N,X,Y,0) :- init(at(N,X,Y)).
 %% Optimierung keine Kisten in Ecken schieben (es sei denn es sind Zielfelder):
 %% Dazu gibt es ein neues Prädikat VerbotenesFeld:
+
+%#program forbidden.
 forbidden(X,Y) :- init(field(X,Y)), not init(target(X,Y)),
 3 #sum {3 : not init(field(X+DX,Y+DY)), not init(field(X+DY,Y+DX)), dir(DX,DY);
  3 : not init(field(X+DX,Y+DY)), not init(field(X-DY,Y-DX)), dir(DX,DY);
@@ -35,16 +37,20 @@ box(N,X,Y,t) :- at(N,X,Y,t), N>0.
 :- at(_,X,Y,_), not init(field(X,Y)).
 :- at(N,X,Y,t), at(M,X,Y,t), N>M.
 %% Optimierung keine Schritte zurücknehmen (wenn man keine Kiste geschoben hat)
-%% TimeAdvantage CPU 310.610s vs 389.370s (it's faster)
+
+%#program nostepsback.
 :- move(DX,DY,t), move(-DX,-DY,t-1), at(0,X,Y,t), not at(_,X-DX,Y-DY,t-1).
 at(0,X+DX,Y+DY,t) :- at(0,X,Y,t-1), move(DX,DY,t), init(field(X+DX,Y+DY)).
 at(N,X+DX,Y+DY,t) :- at(N,X,Y,t-1), at(0,X-DX,Y-DY,t), at(0,X,Y,t), move(DX,DY,t), N>0, not forbidden(X+DX,Y+DY).
+
 %% Optimierung keine Kisten in Ecken schieben (es sei denn es sind Zielfelder):
 %% hier wird das Programm ein bisschen langsamer
-%%:- at(N+1,X,Y,t), {init(field(X+DX,Y+DY)) : dir(DX,DY)} 1, not init(target(X,Y)).
+%#program nocornerboxes.
+:- at(N+1,X,Y,t), {init(field(X+DX,Y+DY)) : dir(DX,DY)} 1, not init(target(X,Y)).
 %% als Alternative erkennt das Programm jetzt verbotene Felder (wo die Kiste das Zielfeld nicht mehr erreichen kann)
 %% auch damit ist das Programm ein bisschen langsamer
-%% :- forbidden(X,Y), box(N,X,Y,t+1), not box(N,X,Y,t).
+%#program deadlockcheck.
+:- forbidden(X,Y), box(N,X,Y,t).
 at(N,X,Y,t) :- at(N,X,Y,t-1), not at(0,X,Y,t), N>0.
 
 
@@ -54,19 +60,4 @@ uncovered(X,Y,t) :- init(target(X,Y)), not at(_,X,Y,t), query(t).
 goal(X,Y,t) :- init(target(X,Y)), not uncovered(X,Y,t), not at(0,X,Y,t), query(t).
 :- not goal(X,Y,t), init(target(X,Y)), query(t).
 
-
-
-%targetCount(X) :- X = {init(target(_,_))}.
-% :- not X {goal(_,_,t)} X, targetCount(X).
-
-
-%uncovered(X,Y,t) :- init(target(X,Y)), not at(_,X,Y,t).
-%goal(X,Y,t) :- init(target(X,Y)), not uncovered(X,Y,t), not at(0,X,Y,t), query(t).
-%%%%%%%%:- init(target(X,Y)), not goal(X,Y,t), query(t).
-%:- goal(t), uncovered(_,_,t), query(t).
-%goal :- goal(t).
-%:- not goal(t), query(t).
-%#minimize{t : goal(t)}.
-
 #show at/4.
-%#show move/3.

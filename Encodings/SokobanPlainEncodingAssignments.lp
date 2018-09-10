@@ -16,9 +16,6 @@ at(N,X,Y,T) :- at(N,X,Y,T-1), not at(0,X,Y,T), N>0, time(T).
 % there can't be two boxes/players, at the same spot
 :- at(N,X,Y,T), at(M,X,Y,T), N>M, time(T).
 
-%uncovered(X,Y,T) :- init(target(X,Y)), not at(_,X,Y,T), time(T).
-%goal(X,Y,T) :- init(target(X,Y)), not uncovered(X,Y,T), not at(0,X,Y,T), time(T).
-%:- not goal(X,Y,horizon), init(target(X,Y)).
 :- init(target(N,X,Y)), not at(N,X,Y,horizon).
 
 #show at/4.

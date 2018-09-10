@@ -1,22 +1,47 @@
-time(0..horizon).
-eleA(1;4).
-eleB(2;5).
-ele1(1;5).ele2(2;4).
-ele(1;2;4;5).
-yo(4 ** 15).
+%time(0..horizon).
+
+#const horizon=10.
+
+%sym(a,f(-1,0), 1).
+%sym(b,f(-1,1), 1).
+%sym(c,f(-1,2), 1).
+%sym(d,f(-1,3), 1).
+
+%reductor(4,b(),0).
+%yo(1) :- reductor(4,b(_),0), 4 > -1.
+%reductor(N-1,G,T) :- b(G) = A, reductor(N,A,T), N > -1.
+%move(1,0,N+T) :- b(G) = A, reductor(N,A,T), N > -1.
+goodway(2,4,3,5,a(a)).
+reductor(N,G,T) :- goodway(N,_,_,T,G).
+
+%sym(a(X),f(f(-1,N),0), 2) :- sym(X,f(-1,N), 1), N != 1.
+%sym(b(X),f(f(-1,N),1), 2) :- sym(X,f(-1,N), 1), N != 0.
+%sym(c(X),f(f(-1,N),2), 2) :- sym(X,f(-1,N), 1), N != 3.
+%sym(d(X),f(f(-1,N),3), 2) :- sym(X,f(-1,N), 1), N != 2.
+
+%sym(a(Y),f(f(f(X,A),B),0),N+1) :- sym(Y,f(f(X,A),B),N), A != 1, B != 1, N<horizon.
+%sym(b(Y),f(f(f(X,A),B),1),N+1) :- sym(Y,f(f(X,A),B),N), A != 0, B != 0, N<horizon.
+%sym(c(Y),f(f(f(X,A),B),2),N+1) :- sym(Y,f(f(X,A),B),N), A != 3, B != 3, N<horizon.
+%sym(d(Y),f(f(f(X,A),B),3),N+1) :- sym(Y,f(f(X,A),B),N), A != 2, B != 2, N<horizon.
+
+%eleA(1;4).
+%eleB(2;5).
+%ele1(1;5).ele2(2;4).
+%ele(1;2;4;5).
+
 %sum(C,0,0,C) :- ele(C).
-sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleA(B),eleA(C).
-sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleB(B),eleB(C).
-sum(B*10+C,0,B,C) :- sum(B,0,0,B),ele1(B),ele1(C).
-sum(B*10+C,0,B,C) :- sum(B,0,0,B),ele2(B),ele2(C).
-sum(A*100+B*10+C,A,B,C) :- eleA(A),eleA(B),eleA(C).
-sum(A*100+B*10+C,A,B,C) :- eleB(A),eleB(B),eleB(C).
-sum(A*100+B*10+C,A,B,C) :- ele1(A),ele1(B),ele1(C).
-sum(A*100+B*10+C,A,B,C) :- ele2(A),ele2(B),ele2(C).
-sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), ele1(X), ele1(Y), ele1(B), A<(10 ** horizon).
-sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), ele2(X), ele2(Y), ele2(B), A<(10 ** horizon).
-sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), eleA(X), eleA(Y), eleA(B), A<(10 ** horizon).
-sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), eleB(X), eleB(Y), eleB(B), A<(10 ** horizon).
+%sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleA(B),eleA(C).
+%sum(B*10+C,0,B,C) :- sum(B,0,0,B),eleB(B),eleB(C).
+%sum(B*10+C,0,B,C) :- sum(B,0,0,B),ele1(B),ele1(C).
+%sum(B*10+C,0,B,C) :- sum(B,0,0,B),ele2(B),ele2(C).
+%sum(A*100+B*10+C,A,B,C) :- eleA(A),eleA(B),eleA(C).
+%sum(A*100+B*10+C,A,B,C) :- eleB(A),eleB(B),eleB(C).
+%sum(A*100+B*10+C,A,B,C) :- ele1(A),ele1(B),ele1(C).
+%sum(A*100+B*10+C,A,B,C) :- ele2(A),ele2(B),ele2(C).
+%sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), ele1(X), ele1(Y), ele1(B), A<(10 ** horizon).
+%sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), ele2(X), ele2(Y), ele2(B), A<(10 ** horizon).
+%sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), eleA(X), eleA(Y), eleA(B), A<(10 ** horizon).
+%sum(A*10+B,X,Y,B) :- sum(A,W,X,Y), eleB(X), eleB(Y), eleB(B), A<(10 ** horizon).
 
 
 

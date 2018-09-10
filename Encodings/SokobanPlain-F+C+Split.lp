@@ -10,8 +10,8 @@ atY(N,Y,0) :- init(at(N,X,Y)).
 atX(0,X+DX,T) :- atX(0,X,T-1), move(DX,_,T), time(T).
 atY(0,Y+DY,T) :- atY(0,Y,T-1), move(_,DY,T), time(T).
 % move box, the player collides with
-atX(N+1,X+DX,T) :- atX(N+1,X,T-1), atX(0,X,T), atY(N+1,Y,T-1), atY(0,Y,T), move(DX,_,T), time(T).
-atY(N+1,Y+DY,T) :- atX(N+1,X,T-1), atX(0,X,T), atY(N+1,Y,T-1), atY(0,Y,T), move(_,DY,T), time(T).
+atX(N,X+DX,T) :- atX(N,X,T-1), atX(0,X,T), atY(N,Y,T-1), atY(0,Y,T), move(DX,_,T), time(T), N>0.
+atY(N,Y+DY,T) :- atX(N,X,T-1), atX(0,X,T), atY(N,Y,T-1), atY(0,Y,T), move(_,DY,T), time(T), N>0.
 % leave boxes that aren't touched at their place with t+1
 atX(N,X,T) :- atX(N,X,T-1), atY(N,Y,T-1), { atX(0,X,T) ; atY(0,Y,T) } 1, N>0, time(T).
 atY(N,Y,T) :- atX(N,X,T-1), atY(N,Y,T-1), { atX(0,X,T) ; atY(0,Y,T) } 1, N>0, time(T).
@@ -30,5 +30,5 @@ covered(X,Y,T) :- init(target(X,Y)), atX(N,X,T), atY(N,Y,T), time(T).
 goal(X,Y,T) :- init(target(X,Y)), covered(X,Y,T), { atX(0,X,T) ; atY(0,Y,T) } 1, time(T).
 :- not goal(X,Y,horizon), init(target(X,Y)).
 
-#hide.
-#show at/4.
+#show atX/3.
+#show atY/3.

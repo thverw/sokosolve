@@ -20,6 +20,8 @@ at(N,X,Y,t) :- at(N,X,Y,t-1), not at(0,X,Y,t), N>0.
 
 #program check(t).
 #external query(t).
-:- init(target(N,X,Y)), not at(N,X,Y,t), query(t).
+uncovered(X,Y,t) :- init(target(X,Y)), not at(_,X,Y,t), query(t).
+goal(X,Y,t) :- init(target(X,Y)), not uncovered(X,Y,t), not at(0,X,Y,t), query(t).
+:- not goal(X,Y,t), init(target(X,Y)), query(t).
 
 #show at/4.

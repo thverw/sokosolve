@@ -6,10 +6,10 @@ dir(1,0;;0,1;;-1,0;;0,-1).
 at(N,X,Y,0) :- init(at(N,X,Y)).
 
 #program step(t).
-:- 0 < X, X = #sum {1 : at(N,1,_,t), N>0 ; -1 : init(target(1,_))}.
-:- 0 < X, X = #sum {1 : at(N,dimX,_,t), N>0 ; -1 : init(target(dimX,_))}.
-:- 0 < X, X = #sum {1 : at(N,_,1,t), N>0 ; -1 : init(target(_,1))}.
-:- 0 < X, X = #sum {1 : at(N,_,dimY,t), N>0 ; -1 : init(target(_,dimY))}.
+:- 1 #sum {1 : at(N,1,_,t), N>0 ; -1 : init(target(1,_))}.
+:- 1 #sum {1 : at(N,dimX,_,t), N>0 ; -1 : init(target(dimX,_))}.
+:- 1 #sum {1 : at(N,_,1,t), N>0 ; -1 : init(target(_,1))}.
+:- 1 #sum {1 : at(N,_,dimY,t), N>0 ; -1 : init(target(_,dimY))}.
 
 % pick one direction to move in
 1 { move(DX,DY,t) : dir(DX,DY) } 1.
@@ -37,7 +37,7 @@ dirPos(1;-1).
             1,2 : at(B,X,Y+DY,t), not init(target(X,Y+DY)), B>0 ; 1,2 : not init(field(X,Y+DY)) ;
             1,3 : at(C,X+DX,Y+DY,t), not init(target(X+DX,Y+DY)), C>0 ; 1,2 : not init(field(X+DX,Y+DY)) ;
             1,4 : at(D,X,Y,t), not init(target(X,Y)), D>0 },
-            dirPos(DX), dirPos(DY), init(field(N,X,Y,t)), N>0.
+            dirPos(DX), dirPos(DY).
 
 
 #program check(t).
