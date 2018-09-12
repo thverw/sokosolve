@@ -13,9 +13,7 @@ at(N,X,Y,T) :- at(N,X,Y,T-1), not at(0,X,Y,T), N>0, time(T).
 :- not init(field(X,Y)), at(_,X,Y,_).
 :- at(N,X,Y,T), at(M,X,Y,T), N>M, time(T).
 
-uncvrd(X,Y,T) :- init(target(X,Y)), not at(_,X,Y,T), time(T).
-goal(X,Y,T) :- init(target(X,Y)), not uncvrd(X,Y,T),
-			not at(0,X,Y,T), time(T).
-:- not goal(X,Y,horizon), init(target(X,Y)).
+box(X,Y) :- at(N,X,Y,horizon), N>0.
+:- init(target(X,Y)), not box(X,Y).
 
 #show at/4.

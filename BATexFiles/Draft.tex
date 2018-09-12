@@ -86,6 +86,7 @@ Detecting deadlocks the moment they appear is a very powerful optimization, for 
 In my research I focused on simple approaches in very specific domains, to be able to compare the efficiency of different optimizations in those domains. The domains I researched are rectangular halls and slightly more crooked levels, for reference see Figure \ref{fig:domains}. There are few common Sokoban domains that only look at levels with these qualities, so I designed a problemset myself. This meant that I had to find the horizon aswell (by using incremental encodings). The basic optimizations are some approaches to deadlock detection, basic move-evaluation (don't take moves back), splitting x and y to reduce groundable variables, and i tried for lexordering the ways to reduce multiple grounded ways from A to B.
 %what did i do?what is my baseline?what changes from encoding to encoding?which of the encodings works best in which kind of instance?how do i evaluate that?show my experiments and their results!
 \section{Encodings}
+In the following, I will present the fact fromat and the first encodings I used to approach Sokoban solving in the input language of the ASP grounder gringo 3 \cite{Potassco}.
 \subsection{Fact Format}
 \paragraph*{•}
 \begin{figure}[h]
@@ -95,22 +96,36 @@ In my research I focused on simple approaches in very specific domains, to be ab
 \label{fig:levelVis}
 \end{figure}
 \lstinputlisting{../InstancesClean/Inst-A-Z20-6Halle.lp}
-For illustration, consider the instance shown in Figure \ref{fig:levelVis} and the corresponding constants and facts in listing ABC. The turn limit is fixed by the constant \textit{horizon} and the level bounds are fixed by the constants \textit{dimX} and \textit{dimY}. The information about the level is stored in three different atoms:
-The \textit{init(field/2)} predicate stores the information about the levelstructure by holding the field coordinates of every field on which the player or a box can be placed.
-The \textit{init(at/3)} predicate holds the initial player- and box-positions. The first argument is the identifier of the object. A zero represents the player; all boxes have identifiers greater than zero. The last two arguments are the initial position of the object in the level.
-The \textit{init(target/2)} predicate has two arguments in levels containing no assignments. Here the two arguments represent the goal coordinates that have to be covered by a box to satisfy the level. In a level with assignments added there will be another argument in front of the other two referencing the identifier of the box that has to be placed on this goal position.
+\begin{lstlisting}[caption={Fact Format of my third level},label=lst:lvl1]
+\end{lstlisting}
+For illustration consider the level shown in Figure \ref{fig:levelVis}. The corresponding fact representation can be seen in Listing \ref{lst:lvl1}. The board size is fixed by the constants $dimX$ and $dimY$; the origin (1,1) is in the top left corner. The positions of player and boxes are stored in the at/3 predicate. The first argument represents the identifier. A zero stands for the player, while all boxes have numbers greater than zero. The second and third argument are the X and Y coordinates, signifying the initial position of the object. For instance init(at(0,1,2)) means the player is at the initial position (1,2). Because I am not exclusively looking at rectangular levels I decided to store all legal fields (meaning fields where a box or player can be placed) by using the predicate field/2. In rectangular levels the legal fields can be defined in one line. Here init(field(1..5,1..4)) (l.4) means the crossproduct of all the numbers in the pools (i.e. (1,1),..,(5,1),(1,2),..,(5,4)).
+The goal of the level is given in the target/2 predicate. Each coordinate given by the two arguments of a target/2 instance has to be covered by a box in the final gamestate to solve this level.
+Finally the constant horizon stores the information how many steps are needed to successfully satisfy the level. This horizon was determined by using the incremental encoding in section \ref{IncEnc}.
 \subsection{Plain Encoding}
 \paragraph*{•}
+\label{list:PlainEnc}
 \lstinputlisting{../EncodingsClean/SokobanPlainEncoding.lp}
-The first try to construct a naive encoding to solve sokoban-instances yielded a solution that works in a common way in ASP planning. In line 4 we initialize the information from the level instance with the time 0. In line 7 we state that there is one move at minimum and at maximum for each timestep. This makes the ASP planner ground all sequences of moves, pick one for every timestep and infer every successive state from the moves it picks. In lines 9-13 we calculate the successor state from the move picked in line 7. Line 9 calculates the new player-position, line 11 calculates the new position of the box in the players way and line 13 calculates the new position of boxes not touched by the player. Additionally we need some integrity constraints to prevent illegal states. The integrity constraint in line 15 ensures that at no time a box or player has a position outside of the playing field. The integrity constraint in line 17 ensures that at no time boxes or the player share one field.
-In the lines 19-21 we define our win-condition to be that all targets in the instance have to be covered by boxes.
-The Plain Encoding has the predicates, time/1, dir/2, at/4, move/3, uncovered/3, goal/3
-The encoding works in a common way in ASP planning, by guessing the sequence of actions and inferring the successor states by effect axioms. There is a time/1 predicate for every timestep and a at/4 predicate for every box and the player at every timestep.
+\begin{lstlisting}[caption={Plain Encoding},label=list:PlainEnc]
+\end{lstlisting}
+The plain encoding seen in listing \ref{list:PlainEnc} uses a strategy common in ASP planning. A choice rule picks the moves (l.6) and the succeeding states are derived from those by using effect and frame axioms (ll.8-11).
+In the first few lines basic information is created, namely a $time/1$ predicate for each timestep (l.1), a $dir/2$ predicate for each of the four possible directions to move in (l.3) and an $at/4$ predicate to set the initial positions of objects as their position at time T=0.
+Additionally the encoding needs integrity constraints to ensure that the plans found are legal. There is one in line 13 that ensures that no object can move off the playable area and another in line 14 that prevents two object from being at the some position at the same time.
+In the lines 16 and 17 the goal condition is defined. The $box/2$ predicate is only created at the last timestep to specify each box position (X,Y). The constraint in line 17 stipulates that all targets have to have a corresponding box predicate with the same coordinates.
+The added directive \textbf{\#show at/4.} in line 21 allows for using clingos output as input to my Visualizer \textit{SokoViz}.
+This encoding allows to check for a plan of length equal to the horizon constant. This is of course not always optimal, e.g. when one wants to know a shortest plan to solve a level. To achieve an encoding that is able to, I will take advantage of incremental solving. $clingo$ provides an easy to use built-in incremental solving  and grounding mode. An encoding using the inc-mode can be seen in listing \ref{list:IncEnc}. It is very similar to the plain encoding from listing \ref{list:PlainEnc} in having the same structure of a choice rule picking the moves and effect and frame axioms finding the successive state. This encoding is split into three parts, which is critical for using the inc-mode. The \#program base part has only information that is created in the very beginning and will be unchanged throughout the whole grounding and solving process. This infomation is called \#static. The \#program step(t) part is the part accumulating knowledge, holding rules that will be collected and used for each step t and all following steps. The last part \#program check(t) holds volatile rules which will be checked once and discarded for the next timestep. Those rules are used to check for success and are no help to solving following steps.
+There is a minor change in the goal defining lines. In the plain encoding the horizon can be used to check efficiently only for the last timestep. In the incremental encoding I carry the time in the $box/3$ prediate to ensure that the constraint in line 21 only affects the target at time t.
+%The first try to construct a naive encoding to solve sokoban-instances yielded a solution that works in a common way in ASP planning. That is, guessing sequences of moves by a choice rule (line 7) and deriving the successive states by using effect and frame axioms (lines 9-13). In line 4 we initialize the information from the level instance with the time 0. Line 9 calculates the new player-position, line 11 calculates the new position of the box in the players way and line 13 calculates the new position of boxes not touched by the player. Additionally we need some integrity constraints to ensure that no illegal solutions are found. The integrity constraint in line 15 ensures that at no time a box or player has a position outside of the playing field. The integrity constraint in line 17 ensures that at no time boxes or the player share one field.
+%In the lines 19-21 we define our win-condition to be that all targets in the instance have to be covered by boxes.
+%The Plain Encoding has the predicates, time/1, dir/2, at/4, move/3, uncovered/3, goal/3.
+%In line 7 we state that there is one move at minimum and at maximum for each timestep. This makes the ASP planner ground all sequences of moves, pick one for every timestep and infer every successive state from the moves it picks. In lines 9-13 we calculate the successor state from the move picked in line 7. 
+%The encoding works in a common way in ASP planning, by guessing the sequence of actions and inferring the successor states by effect axioms. There is a time/1 predicate for every timestep and a at/4 predicate for every box and the player at every timestep.
 
-\subsection{Incremental Encoding}
+\subsection{Incremental Encoding} \label{IncEnc}
 \paragraph*{•}
 \lstinputlisting{../EncodingsClean/SokobanIncEncoding.lp}
-The incremental encoding is similar to the plain encoding. The difference is the partition of the encoding into three parts: the \#program base in lines 3-5 which is independent of the step parameter t, the \#program step in lines 7-19 which is the cumulative part, collecting knowledge and the \#program check in lines 21-25 which is loaded to check for each value of t and then unloaded for the next step. This allows for gradually processing each time step and accumulating knowledge that persists even if the current step is not satisfiable, greatly reducing the time in comparison to reloading the PlainEncoding everytime while incrementing the horizon by one.
+\begin{lstlisting}[caption={Incremental Encoding},label=list:IncEnc]
+\end{lstlisting}
+%The incremental encoding is similar to the plain encoding. The difference is the partition of the encoding into three parts: the \#program base in lines 3-5 which is independent of the step parameter t, the \#program step in lines 7-19 which is the cumulative part, collecting knowledge and the \#program check in lines 21-25 which is loaded to check for each value of t and then unloaded for the next step. This allows for gradually processing each time step and accumulating knowledge that persists even if the current step is not satisfiable, greatly reducing the time in comparison to reloading the PlainEncoding everytime while incrementing the horizon by one.
 
 \subsection{Advanced Encoding}
 \paragraph*{•}
@@ -178,6 +193,11 @@ Journal of Theoretical Computing Science, 1999, Vol. 252, p.1-2.
 Brahim Hnich, Zeynep Kiziltan, Toby Walsh,
 \textit{Combining Symmetry Breaking with Other Constraints: Lexicographic Ordering with Sums},
 ISAIM, 2004.
+
+\bibitem{Potassco}
+Martin Gebser, Roland Kaminski, Benjamin Kaufmann, Marius Lindauer, Max Ostrowski, Javier Romero, Torsten Schaub, Sven Thiele,
+\textit{Potassco User Guide},
+Second Edition, 2015.
 
 \bibitem{WilfongNPhard}
 Gordon Wilfong,

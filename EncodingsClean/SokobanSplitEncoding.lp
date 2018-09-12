@@ -24,10 +24,9 @@ atY(N,Y,T) :- atY(N,Y,T-1), not move(0,_,T), N>0, time(T).
 :- not init(field(X,Y)), atX(N,X,T), atY(N,Y,T).
 :- atX(N,X,T), atY(N,Y,T), atX(M,X,T), atY(M,Y,T), N>M.
 
-boxX(N,X,T) :- atX(N,X,T), N>0.
-boxY(N,Y,T) :- atY(N,Y,T), N>0.
-goal(X,Y,T) :- init(target(X,Y)), boxX(N,X,T), boxY(N,Y,T), time(T).
-:- not goal(X,Y,horizon), init(target(X,Y)).
+box(N,X,Y) :- atX(N,X,horizon), atY(N,Y,horizon), N>0.
+goal(X,Y) :- init(target(X,Y)), box(N,X,Y).
+:- not goal(X,Y), init(target(X,Y)).
 
 #show atX/3.
 #show atY/3.
