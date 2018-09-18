@@ -17,12 +17,10 @@ atX(N,X+DX,t) :- atX(N,X,t-1), atX(0,X,t), move(DX,0,t),
 atY(N,Y+DY,t) :- atY(N,Y,t-1), atY(0,Y,t), move(0,DY,t),
 		atX(N,X,t-1), atX(0,X,t-1), N>0.
 
-atX(N,X,t) :- atX(N,X,t-1), not atX(0,X,t), N>0.
-atX(N,X,t) :- atX(N,X,t-1), atY(N,Y,t), not atY(0,Y,t), N>0.
-atX(N,X,t) :- atX(N,X,t-1), not move(_,0,t), N>0.
-atY(N,Y,t) :- atY(N,Y,t-1), not atY(0,Y,t), N>0.
-atY(N,Y,t) :- atY(N,Y,t-1), atX(N,X,t), not atX(0,X,t), N>0.
-atY(N,Y,t) :- atY(N,Y,t-1), not move(0,_,t), N>0.
+atX(N,X,t) :- atX(N,X,t-1), atY(N,Y,t), N>0,
+	{ atX(0,X,t) ; atY(0,Y,t) ; move(_,0,t) } 2.
+atY(N,Y,t) :- atY(N,Y,t-1), atX(N,X,t), N>0,
+	{ atX(0,X,t) ; atY(0,Y,t) ; move(0,_,t) } 2.
 
 :- not init(field(X,Y)), atX(N,X,t), atY(N,Y,t).
 :- atX(N,X,t), atY(N,Y,t), atX(M,X,t), atY(M,Y,t), N>M.

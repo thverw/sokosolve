@@ -14,8 +14,8 @@
 \contentsline {subsection}{\numberline {4.1.2}Plain Encoding}{9}
 \contentsline {subsection}{\numberline {4.1.3}Incremental Encoding}{10}
 \contentsline {subsection}{\numberline {4.1.4}Split Encoding}{11}
-\contentsline {subsection}{\numberline {4.1.5}Optimizations}{12}
-\contentsline {subsubsection}{Deadlock Detection}{12}
+\contentsline {subsection}{\numberline {4.1.5}Optimizations}{13}
+\contentsline {subsubsection}{Deadlock Detection}{13}
 \contentsline {subsubsection}{Move Evaluation}{14}
 \contentsline {section}{\numberline {4.2}Evaluation}{15}
 \contentsline {section}{\numberline {4.3}Experiments and Results}{15}

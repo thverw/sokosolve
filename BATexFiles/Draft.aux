@@ -8,6 +8,7 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Background}{3}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Rules}{3}}
+\newlabel{IntroStr}{{2.2}{3}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces First of the Classical Sokoban Levels}}{3}}
 \newlabel{fig:1}{{2.1}{3}}
 \citation{WilfongNPhard}
@@ -25,6 +26,7 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Deadlock types}}{6}}
 \newlabel{fig:3}{{3.2}{6}}
 \@writefile{toc}{\contentsline {paragraph}{Relevance Cutting:}{6}}
+\citation{LifschitzASP}
 \citation{BoteaHeuristicsVsPlanning}
 \citation{Dor1999SOKOBANAO}
 \citation{Froleyks2017UsingAA}
@@ -35,13 +37,13 @@
 \@writefile{lot}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {4.1}Encodings}{8}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Fact Format}{8}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Instance 5x4 with 6 boxes}}{8}}
-\newlabel{fig:levelVis}{{4.1}{8}}
 \@writefile{lol}{\contentsline {lstlisting}{../InstancesClean/Inst\textendash A\textendash Z20\textendash 6Halle.lp}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Instance 5x4 with 6 boxes}}{9}}
+\newlabel{fig:levelVis}{{4.1}{9}}
 \newlabel{lst:lvl1}{{4.1}{9}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}Fact Format of my third level}{9}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Plain Encoding}{9}}
-\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/SokobanPlainEncoding.lp}{9}}
+\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/SokobanPlainEncoding.lp}{10}}
 \newlabel{list:PlainEnc}{{4.2}{10}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}Plain Encoding}{10}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1.3}Incremental Encoding}{10}}
@@ -53,24 +55,29 @@
 \@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/SokobanSplitEncoding.lp}{11}}
 \newlabel{list:SplitEnc}{{4.4}{12}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}Split Encoding}{12}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Optimizations}{12}}
-\@writefile{toc}{\contentsline {subsubsection}{Deadlock Detection}{12}}
-\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/ForbiddenFields.optimization.lp}{12}}
-\newlabel{list:Forbidden}{{4.5}{13}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}Forbidden Fields}{13}}
-\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp}{13}}
-\newlabel{list:WBT}{{4.6}{13}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.6}Deadlock check}{13}}
+\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/BadSplitFrameAxiom.lp}{12}}
+\citation{BoteaHeuristicsVsPlanning}
+\citation{SokoRelevanceCuts}
+\newlabel{list:BadFrame}{{4.5}{13}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}Frame Axiom X}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.5}Optimizations}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{Deadlock Detection}{13}}
+\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/ForbiddenFields.optimization.lp}{13}}
+\newlabel{list:Forbidden}{{4.6}{13}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.6}Forbidden Fields}{13}}
+\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp}{14}}
+\newlabel{list:WBT}{{4.7}{14}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.7}Deadlock check}{14}}
 \@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/Clutter.optimization.lp}{14}}
-\newlabel{list:Clutter}{{4.7}{14}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.7}Clutter}{14}}
+\newlabel{list:Clutter}{{4.8}{14}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.8}Clutter}{14}}
 \@writefile{toc}{\contentsline {subsubsection}{Move Evaluation}{14}}
 \@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp}{14}}
-\newlabel{list:MOOB}{{4.8}{14}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.8}Moves out of Bounds}{14}}
-\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/NoTakebacks.optimization.lp}{14}}
-\newlabel{list:NoTake}{{4.9}{14}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.9}No Taking back Moves}{14}}
+\newlabel{list:MOOB}{{4.9}{15}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.9}Moves out of Bounds}{15}}
+\@writefile{lol}{\contentsline {lstlisting}{../EncodingsClean/Optimizations/NoTakebacks.optimization.lp}{15}}
+\newlabel{list:NoTake}{{4.10}{15}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.10}No Taking back Moves}{15}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}Evaluation}{15}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Experiments and Results}{15}}
 \citation{LifschitzASP}
