@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.24)  12 SEP 2018 08:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.24)  17 SEP 2018 13:44
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -100,11 +100,7 @@ Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 143.
-) (./Draft.aux
-
-LaTeX Warning: Label `list:PlainEnc' multiply defined.
-
-)
+) (./Draft.aux)
 \openout1 = `Draft.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
@@ -120,7 +116,8 @@ LaTeX Font Info:    ... okay on input line 18.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
 LaTeX Font Info:    ... okay on input line 18.
 \c@lstlisting=\count97
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count98
 \scratchdimen=\dimen114
@@ -207,168 +204,185 @@ Chapter 1.
 
 ]
 Chapter 2.
-<./images/SokobanLevel1.png, id=18, 1262.7175pt x 727.71875pt>
+<./images/SokobanLevel1.png, id=17, 1262.7175pt x 727.71875pt>
 File: ./images/SokobanLevel1.png Graphic file (type png)
 
 <use ./images/SokobanLevel1.png>
-Package pdftex.def Info: ./images/SokobanLevel1.png used on input line 36.
+Package pdftex.def Info: ./images/SokobanLevel1.png used on input line 30.
 (pdftex.def)             Requested size: 252.53903pt x 145.54117pt.
  [3
 
  <./images/SokobanLevel1.png>] [4]
 Chapter 3.
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-<./images/flipped,deadlockexample.png, id=26, 1262.7175pt x 727.71875pt>
+<./images/flipped,deadlockexample.png, id=25, 1262.7175pt x 727.71875pt>
 File: ./images/flipped,deadlockexample.png Graphic file (type png)
 
 <use ./images/flipped,deadlockexample.png>
 Package pdftex.def Info: ./images/flipped,deadlockexample.png used on input lin
-e 56.
+e 43.
 (pdftex.def)             Requested size: 252.53903pt x 145.54117pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<./images/deadlocktypes.png, id=27, 1262.7175pt x 727.71875pt>
+<./images/deadlocktypes.png, id=26, 1262.7175pt x 727.71875pt>
 File: ./images/deadlocktypes.png Graphic file (type png)
 
 <use ./images/deadlocktypes.png>
-Package pdftex.def Info: ./images/deadlocktypes.png used on input line 62.
+Package pdftex.def Info: ./images/deadlocktypes.png used on input line 49.
 (pdftex.def)             Requested size: 252.53903pt x 145.54117pt.
+ [5
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5
-
-]
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
- [6 <./images/flipped,deadlockexample.png> <./images/deadlocktypes.png>]
-[7]
+] [6 <./images/flipped,deadlockexample.png> <./images/deadlocktypes.png>] [7]
 Chapter 4.
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
 
-LaTeX Warning: Reference `fig:domains' on page 8 undefined on input line 86.
+Overfull \hbox (16.03123pt too wide) in paragraph at lines 57--59
+\OT1/cmr/m/n/10 IM DO-ING ASP AND THAT IS DIF-FER-ENT TO MOST OTHER AP-PROACHES
 
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
+ []
+
 <./images/Visualizer.png, id=39, 277.035pt x 165.61874pt>
 File: ./images/Visualizer.png Graphic file (type png)
 
 <use ./images/Visualizer.png>
-Package pdftex.def Info: ./images/Visualizer.png used on input line 94.
+Package pdftex.def Info: ./images/Visualizer.png used on input line 64.
 (pdftex.def)             Requested size: 277.03432pt x 165.61833pt.
+ (../InstancesClean/Inst-A-Z20-6Halle.lp [8
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-(../InstancesClean/Inst-A-Z20-6Halle.lp) [8
-
-]
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-
-(../EncodingsClean/SokobanPlainEncoding.lp
+ <./images/Visualizer.png>]) (../EncodingsClean/SokobanPlainEncoding.lp
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 6.
 LaTeX Font Info:    Try loading font information for OML+cmr on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
 (Font)              Font shape `OML/cmm/m/it' tried instead on input line 6.
- [9 <./images/Visualizer.png>])
 
-LaTeX Warning: Reference `list:IncEnc' on page 10 undefined on input line 115.
+Overfull \hbox (9.0036pt too wide) in paragraph at lines 8--9
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
 
-[10]
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
- (../EncodingsClean/SokobanIncEncoding.lp)
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
+ []
 
-(../EncodingsClean/Optimizations/Clutter.optimization.lp
-Overfull \hbox (17.10802pt too wide) in paragraph at lines 7--8
+[9]
+Overfull \hbox (33.00385pt too wide) in paragraph at lines 9--10
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][] 
+][][][][][][][] 
+ []
+
+
+Overfull \hbox (15.00366pt too wide) in paragraph at lines 11--13
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][] 
+ []
+
+) (../EncodingsClean/SokobanIncEncoding.lp [10])
+(../EncodingsClean/SokobanSplitEncoding.lp [11]
+Overfull \hbox (69.00421pt too wide) in paragraph at lines 18--19
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][] 
+ []
+
+
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 19--20
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (69.00421pt too wide) in paragraph at lines 21--22
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][][][][][][][] 
+ []
+
+
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 22--24
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) (../EncodingsClean/Optimizations/ForbiddenFields.optimization.lp
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 1--2
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+[12]
+Overfull \hbox (21.00372pt too wide) in paragraph at lines 9--10
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 )
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
- [11] [12]
+Overfull \hbox (15.00366pt too wide) in paragraph at lines 12--103
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+] 
+ []
+
+
+LaTeX Warning: Reference `chapter 1 or 2 introduction' on page 13 undefined on 
+input line 108.
+
+(../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 1--2
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (39.0039pt too wide) in paragraph at lines 2--3
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][] 
+ []
+
+
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 3--4
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+)
+Overfull \hbox (39.0039pt too wide) in paragraph at lines 4--110
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
+][] 
+ []
+
+[13] (../EncodingsClean/Optimizations/Clutter.optimization.lp)
+
+LaTeX Warning: Reference `fig:clutter' on page 14 undefined on input line 120.
+
+(../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp)
+(../EncodingsClean/Optimizations/NoTakebacks.optimization.lp) [14] [15]
 Chapter 5.
-Missing character: There is no â in font cmbx10!
-Missing character: There is no € in font cmbx10!
-Missing character: There is no ¢ in font cmbx10!
-[13
+[16
 
 ]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¼ in font cmr10!
- [14
+ [17
 
 ] (./Draft.aux)
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
  ) 
 Here is how much of TeX's memory you used:
- 3117 strings out of 494910
- 45210 string characters out of 6179836
- 129974 words of memory out of 5000000
- 6368 multiletter control sequences out of 15000+600000
- 8548 words of font info for 30 fonts, out of 8000000 for 9000
+ 3145 strings out of 494910
+ 46173 string characters out of 6179836
+ 128977 words of memory out of 5000000
+ 6381 multiletter control sequences out of 15000+600000
+ 9453 words of font info for 33 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,7n,32p,1283b,1435s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,8n,32p,1206b,1381s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb>
-Output written on Draft.pdf (15 pages, 961776 bytes).
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmti10.pfb>
+Output written on Draft.pdf (18 pages, 939972 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 98 PDF objects out of 1000 (max. 8388607)
+ 65 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

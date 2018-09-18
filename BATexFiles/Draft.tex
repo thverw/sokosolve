@@ -5,33 +5,27 @@
 \usepackage{listings}
 \usepackage{graphicx}
 \usepackage{titlesec}
-\titleformat{\chapter}
-  {\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
+%\titleformat{\chapter}
+%  {\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
 \graphicspath{{./images/}}
 \usepackage{color}
-\lstset{numbers=left,
-literate = {-}{-}1,
-basicstyle=\footnotesize,
-numbersep=5pt, backgroundcolor=\color{white},
-captionpos=b,keywordstyle=\color{blue},
-commentstyle=\color{green}}
+%\lstset{numbers=left,
+%literate = {-}{-}1,
+%basicstyle=\footnotesize,
+%numbersep=5pt, backgroundcolor=\color{white},
+%captionpos=b,keywordstyle=\color{blue},
+%commentstyle=\color{green}}
 \begin{document}
 \maketitle
 \renewcommand*\contentsname{Summary}
 \tableofcontents
 \section*{Abstract}
-Sokoban approach with ASP planning $\rightarrow$ PlainEnc, IncEnc, Optimization (?)
 \chapter{Introduction}
-%% Todo
-What do i do? I'm working on the Sokoban problem and trying to do my best to find a fast and easy solution to it. I'm not working on any level but just the ones meeting some criteria. I'm picking qualitative and quantitative characteristics and deciding on some values to examine. My encodings are supposed to work better on some of the instances and worse on others. What rules describe those fluctuations? What assumptions can be made? Is there a trend when comparing runtimes to my qualitative and quantitative characteristics? E.g. you would expect the runtime to go up when the instance's size grows or when the amount of boxes in the level grows.
-In this thesis I will work on optimizing ASP encodings for the game Sokoban towards different instances. First Ill briefly explain what Sokoban is and how it is played, then Ill give a short introduction on comparable/similar/other scientific studies concerning sokoban. Then Ill go over my work, ... and finally evaluation and Discussion of Results.
 \chapter{What is Sokoban}
 \section{Background}
-%% ZU KURZ, MIR FEHLT EIN BISSCHEN LORE (SOKOBAN HEISST WARENHAUSMANN, ENTWICKELT VON.., ...) UND EIN BISSCHEN FORMALITÄT (VGL \cite{Froleyks2017UsingAA})
 Sokoban is a logistic planning puzzle game from Japan. Sokoban was apparently created by Hiroyuki Imabayashi in 1981, and published by \textit{Thinking Rabbit} in 1982. Sokoban means warehouse person in japanese. The game has very simple rules but shows to be very complex for humans and for AI. This makes Sokoban a very interesting subject for research regarding planning problems.
-%LOT OF RESEARCH REGARDING THAT (SO COMPLEX, SO EXEMPLARY, SO RELATABLE TO REAL LIFE AI PROBLEMS, SO EASY TO RESEARCH)
 \section{Rules}
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.2]{SokobanLevel1}
 \caption{First of the Classical Sokoban Levels}
@@ -40,56 +34,32 @@ Sokoban is a logistic planning puzzle game from Japan. Sokoban was apparently cr
 Figure \ref{fig:1} illustrates the first Sokoban level of the original set of levels. The game is played on a board that can be modelled as a two-dimensional grid. The squares can either be floor or wall squares. Some floor squares are marked as goals and the same number of floor squares contain boxes. The player pushes boxes around this modelled warehouse, trying to cover the marked goal fields (targets) with one of the boxes. For that the player can move one step at a time into one of the four directions \textit{up}, \textit{down}, \textit{left} and \textit{right}. When the player moves onto a box's position the box is pushed one field into the direction of the move. There can never be multiple boxes on one field, neither can there be a box where there is no field. A \textit{solution} to a level is a sequence of moves that leaves a box on each target.
 In many of the levels created to this date, the warehouse has a lot of small passageways and very intricate designs. In this thesis I will look at more open level designs, e.g. rectangular levels.
 Sokoban is a very difficult planning problem for multiple reasons. There are a lot of possibilities to create a deadlock (a gamestate from which no solution can be found), the branching factor is large and the optimal solution can be very long \cite{BoteaHeuristicsVsPlanning}.
-
-%Sokoban is a logistics game, where the player controls a character in a warehouse. The goal of the game is to move all crates in the warehouse on one of the target fields. The rules state that crates cannot be stacked on one field and crates cannot be pushed if there is a crate or a wall blocking the way. Each player move is a step into one of the four directions in a two-dimensional grid. If the player would collide with a crate, the crate is pushed into the direction of the player-movement. A level is usually satisfied when each crate is pushed on a target; also we can conclude that each target would be covered with a crate, because the amount of targets and crates is equal.
 \chapter{Related Work}
-\paragraph*{•}
-\textbf{Complexity:} Gordon Wilfong published in 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard}. He proved this by reducing $3$-$Sat$ to such a problem. The question whether Sokoban is PSPACE-complete remained open until 1997, when Joseph C. Culberson published his paper "Sokoban is PSPACE-complete" \cite{PSpaceComplete}. He found a transformation algorithm to transform an LBA into a level of Sokoban, with the solution to the level having a number of steps in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made. %This shows PSPACE-hardness and Sokoban is known to be in PSPACE, so Sokoban is PSPACE-complete.
-%He didnt answer the question whether Sokoban is also PSPACE-complete. That was answered by Joseph C Culberson \cite{PSpaceComplete} in 1997. He showed that it is possible to emulate a linear bounded automaton by constructing a level. The solution to this constructed level, if there is any, will have a length in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made. This shows PSPACE-completeness
-\paragraph*{•}
-\textbf{Approaches:} There are loads of different researches regarding approaches to Sokoban. I decided which to show. Botea et al. found out that heuristics, while significantly improving chess AI, do not seem to help for planning the soko puzzle \cite{BoteaHeuristicsVsPlanning}. Planning would be a better approach. So to get there and create good plans like humans would, the solver will start meta-reasoning by recognizing rooms and tunnels. Then using those rooms and tunnels to create a plan where first a way is found to bring the crates from the room where theyre at to the target room. Then another plan is made to organize crates in a room.
-\paragraph*{•}
-\textbf{Macromoves:} Macromoves are a planning strategy that is so successful it is implemented in several good Sokoban solvers. The best example would be Rolling Stone, an excellent Sokoban solver, with a lot of optimizations implemented. One of the optimizations is the possibility to create macromoves for tunnels to reduce all states in the tunnel to one or two, reducing the search space severely.
-\paragraph*{•}
-\begin{figure}[h]
+\paragraph{Complexity:} Gordon Wilfong published in 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard}. He proved this by reducing $3$-$Sat$ to such a problem. The question whether Sokoban is PSPACE-complete remained open until 1997, when Joseph C. Culberson published his paper "Sokoban is PSPACE-complete" \cite{PSpaceComplete}. He found a transformation algorithm to transform an LBA into a level of Sokoban, with the solution to the level having a number of steps in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made.
+\paragraph{Approaches:} There are loads of different researches regarding approaches to Sokoban. I decided which to show. Botea et al. found out that heuristics, while significantly improving chess AI, do not seem to help for planning the soko puzzle \cite{BoteaHeuristicsVsPlanning}. Planning would be a better approach. So to get there and create good plans like humans would, the solver will start meta-reasoning by recognizing rooms and tunnels. Then using those rooms and tunnels to create a plan where first a way is found to bring the crates from the room where theyre at to the target room. Then another plan is made to organize crates in a room.
+\paragraph{Macromoves:} Macromoves are a planning strategy that is so successful it is implemented in several good Sokoban solvers. The best example would be Rolling Stone, an excellent Sokoban solver, with a lot of optimizations implemented. One of the optimizations is the possibility to create macromoves for tunnels to reduce all states in the tunnel to one or two, reducing the search space severely.
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.2]{flipped,deadlockexample}
 \caption{Deadlock example}
 \label{fig:2}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics[scale=0.2]{deadlocktypes}
 \caption{Deadlock types}
 \label{fig:3}
 \end{figure}
-\textbf{Deadlock Detection:} Deadlocks are states from which no solution can be found. A trivial example for a deadlock (see Figure \ref{fig:2}) is a box pushed into a corner with no target under it. The box cannot be pulled, so it cannot be recovered from the corner, but to find a solution all boxes have to be covering a target.
+\paragraph{Deadlock Detection:} Deadlocks are states from which no solution can be found. A trivial example for a deadlock (see Figure \ref{fig:2}) is a box pushed into a corner with no target under it. The box cannot be pulled, so it cannot be recovered from the corner, but to find a solution all boxes have to be covering a target.
 Detecting deadlocks the moment they appear is a very powerful optimization, for the reason that huge parts of the search tree can be eliminated early on, without further looking into them. The problem with this strategy is that deadlocks can be very hard to detect, e.g. when they consist of multiple boxes blocking each other in some kind of tunnelsystem. Deadlocks are easier to detect and remove from the search tree when the domain is restricted. When looking at levels with a rectangular shape there are four common deadlocks, cp. Fig. \ref{fig:3}.
-\paragraph*{•}
-%% A: Box in Corner, B: Doublebox on wall, C: Three boxes on corner, D: Four boxes building a square
-%What is a Deadlock, with picture. Why do you detect those? How do you detect those? Better when you know the level or know basic deadlocks to look for. In the halls without tunnels it should be less hard
-\textbf{Relevance Cutting:} A basic AI to solve a planning problem like Sokoban will look at all possible ways to move around the level, but some of those are dubious but legal or just plain irrelevant. In a lot of cases those dubious ways do not lead to an optimal solution, but of course a problem can be constructed where the optimal solution can only be found when looking at those dubious cases. So Junghanns and Schaeffer tried to teach their AI meta-reasoning to give it the ability to know when to look at those dubious ways and when to ignore them. This they did by creating an influence measurement and only taking moves that are influenced by prior moves, to prevent actions that are disembodied from all prior moves. This is used in the popular Sokoban Solver Rolling Stone which has an excellent record in approaching difficult Sokoban problems.
-%Relevance Cutting tries to remove the problem of really stupid AI moves, like lrlrlrlrlrlrlr, by trying to teach the AI to know relevance, by teaching it influence of one move over another. This means that the moves can't be without any connection to each other and that the AI can realize that two parts of the puzzle have no influence on each other implying that order between the parts doesnt matter. the approach is statistic not dynamic which makes it rather simple and improvable.
-%Heuristics doesnt seem to do a great deal for sokoban \cite{BoteaHeuristicsVsPlanning}. It helped a lot with chess e.g., but doesnt cut it for sokoban. Approach the hard domain of sokoban in another way. Macromoves a way that really works well and is used in practice, also deadlock detection (WHAT IS A DEADLOCK - stone in corner and no goal -> no solutions) (obviously best if you know the specific level). Reference Rolling stone (source not available (?)). Furthermore Sokoban can be abstracted into rooms and tunnels, making it into subproblems which should be easier to solve, tunnels for example, are mostly immediately solved. Similarly you can also use relevance cutting. This means creating a measurement for relevance in between moves and picking moves that are relevant to prior moves (few exceptions in special cases).Backwards Approach and LexOrdering.Conclusion
-%Sokoban was researched to be PSPACE-complete and NP-hard. PSPACE-complete was done by constructing levels that are PSPACE-complete (look at the work again!!). Heuristic seems to be of little use, so go for planning instead [botea]
-%Sokoban can be abstracted into subproblems to get more smaller problems, greatly reducing searchspace.
-%This also makes sense in relevance cutting, which looks at relations between boxes to find groups that behave together and cleanly separate those.
-%Alternatively Backwards Approach
-%Or LexOrdering
-%All in all a Plethora of different approaches to crack the problems of sokoban.
-%- mention other works on Sokoban
-%- what tests?
-%- what results?
-%- whats the connection?
+\paragraph{Relevance Cutting:} A basic AI to solve a planning problem like Sokoban will look at all possible ways to move around the level, but some of those are dubious but legal or just plain irrelevant. In a lot of cases those dubious ways do not lead to an optimal solution, but of course a problem can be constructed where the optimal solution can only be found when looking at those dubious cases. So Junghanns and Schaeffer tried to teach their AI meta-reasoning to give it the ability to know when to look at those dubious ways and when to ignore them. This they did by creating an influence measurement and only taking moves that are influenced by prior moves, to prevent actions that are disembodied from all prior moves. This is used in the popular Sokoban solver Rolling Stone which has an excellent record in solving Sokoban problems.
 \chapter{My Work}
-\paragraph*{•}
-In my research I focused on simple approaches in very specific domains, to be able to compare the efficiency of different optimizations in those domains. The domains I researched are rectangular halls and slightly more crooked levels, for reference see Figure \ref{fig:domains}. There are few common Sokoban domains that only look at levels with these qualities, so I designed a problemset myself. This meant that I had to find the horizon aswell (by using incremental encodings). The basic optimizations are some approaches to deadlock detection, basic move-evaluation (don't take moves back), splitting x and y to reduce groundable variables, and i tried for lexordering the ways to reduce multiple grounded ways from A to B.
-%what did i do?what is my baseline?what changes from encoding to encoding?which of the encodings works best in which kind of instance?how do i evaluate that?show my experiments and their results!
+IM DOING ASP AND THAT IS DIFFERENT TO MOST OTHER APPROACHES I LOOKED AT
+\cite{BoteaHeuristicsVsPlanning} \cite{Dor1999SOKOBANAO} \cite{Froleyks2017UsingAA} \cite{SokoRelevanceCuts}
 \section{Encodings}
-In the following, I will present the fact fromat and the first encodings I used to approach Sokoban solving in the input language of the ASP grounder gringo 3 \cite{Potassco}.
+In the following, I will present the fact format and the first encodings I used to approach Sokoban solving in the input language of the ASP grounder gringo 3 \cite{Potassco}.
 \subsection{Fact Format}
-\paragraph*{•}
-\begin{figure}[h]
+\begin{figure}[ht]
 \centering
 \includegraphics{Visualizer}
 \caption{Instance 5x4 with 6 boxes}
@@ -102,8 +72,6 @@ For illustration consider the level shown in Figure \ref{fig:levelVis}. The corr
 The goal of the level is given in the target/2 predicate. Each coordinate given by the two arguments of a target/2 instance has to be covered by a box in the final gamestate to solve this level.
 Finally the constant horizon stores the information how many steps are needed to successfully satisfy the level. This horizon was determined by using the incremental encoding in section \ref{IncEnc}.
 \subsection{Plain Encoding}
-\paragraph*{•}
-\label{list:PlainEnc}
 \lstinputlisting{../EncodingsClean/SokobanPlainEncoding.lp}
 \begin{lstlisting}[caption={Plain Encoding},label=list:PlainEnc]
 \end{lstlisting}
@@ -112,31 +80,71 @@ In the first few lines basic information is created, namely a $time/1$ predicate
 Additionally the encoding needs integrity constraints to ensure that the plans found are legal. There is one in line 13 that ensures that no object can move off the playable area and another in line 14 that prevents two object from being at the some position at the same time.
 In the lines 16 and 17 the goal condition is defined. The $box/2$ predicate is only created at the last timestep to specify each box position (X,Y). The constraint in line 17 stipulates that all targets have to have a corresponding box predicate with the same coordinates.
 The added directive \textbf{\#show at/4.} in line 21 allows for using clingos output as input to my Visualizer \textit{SokoViz}.
-This encoding allows to check for a plan of length equal to the horizon constant. This is of course not always optimal, e.g. when one wants to know a shortest plan to solve a level. To achieve an encoding that is able to, I will take advantage of incremental solving. $clingo$ provides an easy to use built-in incremental solving  and grounding mode. An encoding using the inc-mode can be seen in listing \ref{list:IncEnc}. It is very similar to the plain encoding from listing \ref{list:PlainEnc} in having the same structure of a choice rule picking the moves and effect and frame axioms finding the successive state. This encoding is split into three parts, which is critical for using the inc-mode. The \#program base part has only information that is created in the very beginning and will be unchanged throughout the whole grounding and solving process. This infomation is called \#static. The \#program step(t) part is the part accumulating knowledge, holding rules that will be collected and used for each step t and all following steps. The last part \#program check(t) holds volatile rules which will be checked once and discarded for the next timestep. Those rules are used to check for success and are no help to solving following steps.
-There is a minor change in the goal defining lines. In the plain encoding the horizon can be used to check efficiently only for the last timestep. In the incremental encoding I carry the time in the $box/3$ prediate to ensure that the constraint in line 21 only affects the target at time t.
-%The first try to construct a naive encoding to solve sokoban-instances yielded a solution that works in a common way in ASP planning. That is, guessing sequences of moves by a choice rule (line 7) and deriving the successive states by using effect and frame axioms (lines 9-13). In line 4 we initialize the information from the level instance with the time 0. Line 9 calculates the new player-position, line 11 calculates the new position of the box in the players way and line 13 calculates the new position of boxes not touched by the player. Additionally we need some integrity constraints to ensure that no illegal solutions are found. The integrity constraint in line 15 ensures that at no time a box or player has a position outside of the playing field. The integrity constraint in line 17 ensures that at no time boxes or the player share one field.
-%In the lines 19-21 we define our win-condition to be that all targets in the instance have to be covered by boxes.
-%The Plain Encoding has the predicates, time/1, dir/2, at/4, move/3, uncovered/3, goal/3.
-%In line 7 we state that there is one move at minimum and at maximum for each timestep. This makes the ASP planner ground all sequences of moves, pick one for every timestep and infer every successive state from the moves it picks. In lines 9-13 we calculate the successor state from the move picked in line 7. 
-%The encoding works in a common way in ASP planning, by guessing the sequence of actions and inferring the successor states by effect axioms. There is a time/1 predicate for every timestep and a at/4 predicate for every box and the player at every timestep.
-
+This encoding allows to check for a plan of length equal to the horizon constant. This is of course not always optimal, e.g. when one wants to know a shortest plan to solve a level. To achieve an encoding that is able to, I will take advantage of incremental solving.
 \subsection{Incremental Encoding} \label{IncEnc}
-\paragraph*{•}
 \lstinputlisting{../EncodingsClean/SokobanIncEncoding.lp}
 \begin{lstlisting}[caption={Incremental Encoding},label=list:IncEnc]
 \end{lstlisting}
-%The incremental encoding is similar to the plain encoding. The difference is the partition of the encoding into three parts: the \#program base in lines 3-5 which is independent of the step parameter t, the \#program step in lines 7-19 which is the cumulative part, collecting knowledge and the \#program check in lines 21-25 which is loaded to check for each value of t and then unloaded for the next step. This allows for gradually processing each time step and accumulating knowledge that persists even if the current step is not satisfiable, greatly reducing the time in comparison to reloading the PlainEncoding everytime while incrementing the horizon by one.
+$clingo$ provides an easy to use built-in incremental solving  and grounding mode. An encoding using the inc-mode can be seen in listing \ref{list:IncEnc}. It is very similar to the plain encoding from listing \ref{list:PlainEnc} in having the same structure of a choice rule picking the moves and effect and frame axioms finding the successive state. This encoding is split into three parts, which is critical for using the inc-mode. The \#program base part has only information that is created in the very beginning and will be unchanged throughout the whole grounding and solving process. This infomation is called \#static. The \#program step(t) part is the part accumulating knowledge, holding rules that will be collected and used for each step t and all following steps. The last part \#program check(t) holds volatile rules which will be checked once and discarded for the next timestep. Those rules are used to check for success and are no help to solving following steps.
+There is a minor change in the goal defining lines. In the plain encoding the horizon can be used to check efficiently only for the last timestep. In the incremental encoding I carry the time in the $box/3$ prediate to ensure that the constraint in line 21 only affects the target at time t.
 
-\subsection{Advanced Encoding}
-\paragraph*{•}
+\subsection{Split Encoding}
+\lstinputlisting{../EncodingsClean/SokobanSplitEncoding.lp}
+\begin{lstlisting}[caption={Split Encoding},label=list:SplitEnc]
+\end{lstlisting}
+The split encoding uses a technique common in ASP planning. When all coordinates are split into a vertical and a horizontal information the grounder does not have to ground all combinations of coordinates ($X * Y$) but only the sum of coordinates ($X + Y$). This has the advantage of less ground instances, but the disadvantage of a harder solving process. Just compare the ramifications in the plain encoding those in the split encoding. The plain encoding can deal with all ramifications in just three rules, while the split encoding needs ten rules. Obviously when splitting the coordinates into horizontal and vertical the rules deriving the new coordinates have to be twice as many. The other problem is that it is harder to find out whether two objects meet each other at a time. That is why the frame axiom, signifying that boxes that are not touched do not move, has six lines, where it had only one line before. This is why this encoding has a performance problem.
+The last few changes are a second line for the initial readout of the level in lines 4 and 5, a few updates to the integrity constraints in lines 24 and 25 and a slightly different goal definition using the new coordinates.
+%Here is another encoding, following a common ASP planning technique that aims to reduce ground instances. By splitting the horizontal and vertical coordinates, the program does not have to ground all combinations ($dimX * dimY$) of coordinates, but just each coordinate by itself (totaling $dimX + dimY$).% only grounds $(dimX + dimY) * horizon * N$ different positions instead of $dimX * dimY * horizon * N$.
+
+\subsection{Optimizations}
+
+\subsubsection{Deadlock Detection}
+
+\lstinputlisting{../EncodingsClean/Optimizations/ForbiddenFields.optimization.lp}
+\begin{lstlisting}[caption={Forbidden Fields},label=list:Forbidden]
+\end{lstlisting}
+
+Whenever an AI tries to solve a planning problem with a naive encoding, it always has to guess all possible combinations of moves and just has to play them through. There are a lot of moves that instantly destroy any chanco in ever satisfiying the level afterwards. Those gamestates from which no solution can be found are called deadlocks. A search tree can be greatly reduced if one were to remove all deadlocked branches. The difficulty is that some deadlocks are very hard to notice and sometimes it takes more time elimintaing the deadlock than to explore the search tree without eliminating. This is why the deadlock detection approach takes only obvious deadlocks. There are three different approaches I tried to remove deadlocks. The Forbidden Fields optimization (listing \ref{list:Forbidden}) works by generating a list of forbidden fields. Those fields are creating deadlocks when the player pushes a box onto them. This approach has the benefit of having a lot of that one can exclude from all solution pathways. Those fields are deduced in the \#static part of the program, i.e. they are only grounded once and do not change over the timesteps in a level instance.
+The disadvantage of this approach is the rather long time it takes to find all forbidden fields. Furthermore the approach works best in levels that do not have any restrictions on how they are constructed. As I am looking into levels having a very specific structure, see \ref{chapter 1 or 2 introduction}, this implementation is not the best approach. In rectangular levels there is an easier way to express a very similar deadlock detection, see next paragraph.
+
+\lstinputlisting{../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp}
+\begin{lstlisting}[caption={Deadlock check},label=list:WBT]
+\end{lstlisting}
+
+This approach can be seen in listing \ref{list:WBT}. This optimization works best in rectangular levels by simplifying the forbidden check for this special case. The implementaion does not look at tunnels or similar structures but only checks for the outermost lines and rows. When a box is pushed into one of those lines or rows one will not be able to remove it from that line or row. So the idea is to compare the number of boxes in an outermost line or row to the number of targets in it. If the number of boxes exceeds the number of targets the level cannot be satisfied anymore. The result is a very slim check which can help to greatly reduce a search tree.
+
 \lstinputlisting{../EncodingsClean/Optimizations/Clutter.optimization.lp}
+\begin{lstlisting}[caption={Clutter},label=list:Clutter]
+\end{lstlisting}
+
+My third approach to deadlock detection (see listing \ref{list:Clutter}) recognizes a "clutter" of boxes (see Fig. \ref{fig:clutter}). This means a 2x2 square where each field is either a box or a wall, which means that all those boxes would have to stay in their places. In line 8 of the optimization we can see that the box D does not have a target underneath which qualifies the situation to be a deadlock. This type of deadlock happens a lot in crammed levels with a high box to field ratio. Those very common deadlocks are clearly most important to find and remove to reduce the search tree efficiently.
+
+\subsubsection{Move Evaluation}
+
+In the following I will show two more optimizations working with move evaluation. This means eliminating movies that will not be relevant for a shortest plan.
+
+\lstinputlisting{../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp}
+\begin{lstlisting}[caption={Moves out of Bounds},label=list:MOOB]
+\end{lstlisting}
+
+The optimization in listing \ref{list:MOOB} is very simple but can remove a lot of moves from grounding, which would be removed after ramifications when checking integrity constraints otherwise. This is more important in levels with a very long shortest plan. The optimization works by preventing all moves that would lead the player of the playable area, for instance a move to the left while the player is at the leftmost position of the level.
+
+\lstinputlisting{../EncodingsClean/Optimizations/NoTakebacks.optimization.lp}
+\begin{lstlisting}[caption={No Taking back Moves},label=list:NoTake]
+\end{lstlisting}
+
+The last move evaluation seen in listing \ref{list:NoTake} tries to recognize moves that have no effect. This is done by checking for move instances $move(DX,DY,T)$ and $move(-DX,-DY,T-1)$ where no box was moved in timestep T-1. This would imply that the player moved back and forth without actually changing the gamestate, which means the plan is not relevant for finding the shortest plan in the level instance.
+
 \section{Evaluation}
-\paragraph*{•}
+
+
 \section{Experiments and Results}
-\paragraph*{•}
+
+
 \chapter{Discussion of Results}
-\paragraph*{•}
 compare chapter State of the Art with chapter My Work \cite{LifschitzASP}
+
+
 
 \begin{thebibliography}{}
 \bibitem{LifschitzASP}
