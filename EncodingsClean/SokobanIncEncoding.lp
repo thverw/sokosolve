@@ -19,5 +19,3 @@ at(N,X,Y,t) :- at(N,X,Y,t-1), not at(0,X,Y,t), N>0.
 #external query(t).
 box(X,Y,t) :- at(N,X,Y,t), N>0, query(t).
 :- not box(X,Y,t), init(target(X,Y)), query(t).
-
-#show at/4.

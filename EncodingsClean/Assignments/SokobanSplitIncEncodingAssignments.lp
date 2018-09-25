@@ -33,7 +33,5 @@ atY(N,Y,t) :- atY(N,Y,t-1), N>0, not move(0,_,t).
 
 #program check(t).
 #external query(t).
-boxX(N,X,t) :- atX(N,X,t), N>0.
-boxY(N,Y,t) :- atY(N,Y,t), N>0.
-goal(X,Y,t) :- init(target(X,Y)), boxX(N,X,t), boxY(N,Y,T), query(t).
-:- not goal(X,Y,t), init(target(X,Y)), query(t).
+:- init(target(N,X,_)), not atX(N,X,t), query(t).
+:- init(target(N,_,Y)), not atY(N,Y,t), query(t).

@@ -1,4 +1,4 @@
-#const horizon=60. %% prob smaller
+#const horizon=70. %% prob smaller
 #const dimX = 6.
 #const dimY = 5.
 init(field(1..6,1..5)).

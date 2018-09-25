@@ -14,5 +14,3 @@ at(N,X,Y,T) :- at(N,X,Y,T-1), not at(0,X,Y,T), N>0, time(T).
 :- at(N,X,Y,T), at(M,X,Y,T), N>M, time(T).
 
 :- init(target(N,X,Y)), not at(N,X,Y,horizon).
-
-#show at/4.

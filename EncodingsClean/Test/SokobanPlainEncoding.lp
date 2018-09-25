@@ -15,3 +15,5 @@ at(N,X,Y,T) :- at(N,X,Y,T-1), not at(0,X,Y,T), N>0, time(T).
 
 box(X,Y) :- at(N,X,Y,horizon), N>0.
 :- init(target(X,Y)), not box(X,Y).
+
+#show at/4.

@@ -1,4 +1,3 @@
-#program Enc2.
 time(0..horizon).
 
 dir(1,0;0,1;-1,0;0,-1).
@@ -28,6 +27,5 @@ atY(N,Y,T) :- atY(N,Y,T-1), N>0, time(T), not move(0,_,T).
 :- not init(field(X,Y)), atX(N,X,T), atY(N,Y,T).
 :- atX(N,X,T), atY(N,Y,T), atX(M,X,T), atY(M,Y,T), N>M.
 
-box(X,Y) :- atX(N,X,horizon), atY(N,Y,horizon), N>0.
-goal(X,Y) :- init(target(X,Y)), box(X,Y).
-:- not goal(X,Y), init(target(X,Y)).
+:- init(target(N,X,_)), not atX(N,X,horizon).
+:- init(target(N,_,Y)), not atY(N,Y,horizon).
