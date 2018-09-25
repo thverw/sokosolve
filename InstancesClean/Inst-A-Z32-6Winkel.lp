@@ -1,4 +1,4 @@
-#const horizon=35.
+#const horizon = 35.
 #const dimX = 10.
 #const dimY = 58
 init(field(1..10,(3;4))).

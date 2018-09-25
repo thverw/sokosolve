@@ -6,4 +6,4 @@ forbidden(X,Y) :- init(field(X,Y)), not init(target(X,Y)),
  1,3 : not init(field(X+DX,Y+DY)), dir(DX,DY);
  1,4 : not init(field(X+DX,Y+DY)), not init(field(X-DX,Y-DY)), dir(DX,DY)}.
 % forbidden fields
-:- at(N,X,Y,T), forbidden(X,Y), N>0, T>0, not at(N,X,Y,T-1).
+:- atX(N,X,T), atY(N,Y,T), { atX(N,X,T-1) ; atY(N,Y,T-1) } 1, forbidden(X,Y), N>0, T>0.

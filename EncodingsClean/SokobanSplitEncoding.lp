@@ -1,4 +1,3 @@
-#program Enc2.
 time(0..horizon).
 
 dir(1,0;0,1;-1,0;0,-1).
