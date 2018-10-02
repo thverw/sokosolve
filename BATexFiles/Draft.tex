@@ -35,7 +35,7 @@ Sokoban is a very difficult planning problem for multiple reasons. There are a l
 \chapter{Related Work}
 \paragraph{Complexity:} Gordon Wilfong published in 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard}. He proved this by reducing $3$-$Sat$ to such a problem. The question whether Sokoban is PSPACE-complete remained open until 1997, when Joseph C. Culberson published his paper "Sokoban is PSPACE-complete" \cite{PSpaceComplete}. He found a transformation algorithm to transform an LBA into a level of Sokoban, with the solution to the level having a number of steps in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made.
 \paragraph{Approaches:} There are loads of different researches regarding approaches to Sokoban. I decided which to show. Botea et al. found out that heuristics, while significantly improving chess AI, do not seem to help for planning the soko puzzle \cite{BoteaHeuristicsVsPlanning}. Planning would be a better approach. So to get there and create good plans like humans would, the solver will start meta-reasoning by recognizing rooms and tunnels. Then using those rooms and tunnels to create a plan where first a way is found to bring the crates from the room where theyre at to the target room. Then another plan is made to organize crates in a room.
-\paragraph{Macromoves:} Macromoves are a planning strategy that is so successful it is implemented in several good Sokoban solvers. The best example would be Rolling Stone, an excellent Sokoban solver, with a lot of optimizations implemented. One of the optimizations is the possibility to create macromoves for tunnels to reduce all states in the tunnel to one or two, reducing the search space severely.
+\paragraph{Macromoves:} Macromoves are a planning strategy that is so successful it is implemented in several good Sokoban solvers. The best example would be Rolling Stone, an excellent Sokoban solver, with a lot of optimizations and strategies implemented. One of the strategies is the possibility to create macromoves for tunnels to collapse all states in the tunnel into one or two different states, reducing the search space severely \cite{SokoRelevanceCuts}.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.2]{flipped,deadlockexample}
@@ -49,12 +49,16 @@ Sokoban is a very difficult planning problem for multiple reasons. There are a l
 \label{fig:3}
 \end{figure}
 \paragraph{Deadlock Detection:} Deadlocks are states from which no solution can be found. A trivial example for a deadlock (see Figure \ref{fig:2}) is a box pushed into a corner with no target under it. The box cannot be pulled, so it cannot be recovered from the corner, but to find a solution all boxes have to be covering a target.
-Detecting deadlocks the moment they appear is a very powerful optimization, for the reason that huge parts of the search tree can be eliminated early on, without further looking into them. The problem with this strategy is that deadlocks can be very hard to detect, e.g. when they consist of multiple boxes blocking each other in some kind of tunnelsystem. Deadlocks are easier to detect and remove from the search tree when the domain is restricted. When looking at levels with a rectangular shape there are four common deadlocks, cp. Fig. \ref{fig:3}.
-\paragraph{Relevance Cutting:} A basic AI to solve a planning problem like Sokoban will look at all possible ways to move around the level, but some of those are dubious but legal or just plain irrelevant. In a lot of cases those dubious ways do not lead to an optimal solution, but of course a problem can be constructed where the optimal solution can only be found when looking at those dubious cases. So Junghanns and Schaeffer tried to teach their AI meta-reasoning to give it the ability to know when to look at those dubious ways and when to ignore them. This they did by creating an influence measurement and only taking moves that are influenced by prior moves, to prevent actions that are disembodied from all prior moves. This is used in the popular Sokoban solver Rolling Stone which has an excellent record in solving Sokoban problems.
+Detecting deadlocks the moment they appear is a very powerful solution strategy, for the reason that huge parts of the search tree can be eliminated early on, without further looking into them \cite{SokoRelevanceCuts}. The problem with this strategy is that deadlocks can be very hard to detect, e.g. when they consist of multiple boxes blocking each other in some kind of tunnelsystem. Deadlocks are easier to detect and remove from the search tree when the domain is restricted. When looking at levels with a rectangular shape there are four common deadlocks, cp. Fig. \ref{fig:3} .
+\paragraph{Relevance Cutting:} A basic AI to solve a planning problem like Sokoban will look at all possible ways to move around the level, but some of those are dubious but legal or just plain irrelevant. In a lot of cases those dubious ways do not lead to an optimal solution, but of course a problem can be constructed where the optimal solution can only be found when looking at those dubious cases. So Junghanns and Schaeffer tried to teach their AI meta-reasoning to give it the ability to know when to look at those dubious ways and when to ignore them. This they did by creating an influence measurement and only taking moves that are influenced by prior moves, to prevent actions that are disembodied from all prior moves. This is used in the popular Sokoban solver Rolling Stone which has an excellent record in solving Sokoban problems \cite{SokoRelevanceCuts}.
 \chapter{My Work}
-In my work I decided to research Sokoban planning with Answer Set Programming (ASP), a logic programming system designed to return answer sets to queries \cite{LifschitzASP}. I created different basic encodings and optimizations in a modular fashion. Those I will present to you in this chapter. Additionally I created a level portfolio, corresponding to different qualitative properties, e.g. level dimensions or number of boxes, and quantitative properties e.g. a seperation of the level into a zone where all the boxes are placed and a zone where all the targets are placed. The levels have two different types of structures. The first type is a rectangular level with the X and Y dimension differing by 1. The second type is created by connecting 2x2 fields at their edges, see \ref{fig:levelCrooked}.
-%. But instead of Prolog ASP is capable of producing answer sets to a query
-\cite{BoteaHeuristicsVsPlanning} \cite{Dor1999SOKOBANAO} \cite{Froleyks2017UsingAA} \cite{SokoRelevanceCuts}
+In my work I decided to research Sokoban planning with Answer Set Programming (ASP), a logic programming system designed to return answer sets to queries \cite{LifschitzASP}. I created different basic encodings and strategy implementations in a modular fashion. Those I will present to you in this chapter. Additionally I created a level portfolio, corresponding to different qualitative properties, e.g. level dimensions or number of boxes, and quantitative properties e.g. a seperation of the level into a zone where all the boxes are placed and a zone where all the targets are placed. The levels have two different types of structures. The first type is a rectangular level with the X and Y dimension differing by 1. The second type is created by connecting 2x2 fields at their edges, see \ref{fig:levelCrooked}.
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.2]{CrookedLevel}
+\caption{A small (without the light gray part) and a large level (with the light gray part) with non-rectangular Structure}
+\label{fig:levelCrooked}
+\end{figure}
 \section{Encodings}
 In the following, I will present the fact format and the first encodings I used to approach Sokoban solving in the input language of the ASP grounder gringo 3 \cite{Potassco}.
 \subsection{Fact Format}
@@ -92,13 +96,13 @@ There is a minor change in the goal defining lines. In the plain encoding the ho
 \begin{lstlisting}[caption={Split Encoding},label=list:SplitEnc]
 \end{lstlisting}
 The split encoding uses a technique common in ASP planning. When all coordinates are split into a vertical and a horizontal information the grounder does not have to ground all combinations of coordinates ($X * Y$) but only the sum of coordinates ($X + Y$). This has the advantage of less ground instances, but the disadvantage of a harder solving process. Just compare the ramifications in the plain encoding those in the split encoding. The plain encoding can deal with all ramifications in just three rules, while the split encoding needs ten rules. Obviously when splitting the coordinates into horizontal and vertical the rules deriving the new coordinates have to be twice as many. The other problem is that it is harder to find out whether two objects meet each other at a time. That is why the two frame axioms, signifying that boxes that are not touched do not move, have aggregates (ll.17-20). Those are used for simplifying complex rules; the first rule without the aggregates can be seen in listing \ref{list:BadFrame}.
-\lstinputlisting{../EncodingsClean/BadSplitFrameAxiom.lp}
+\lstinputlisting{../EncodingsClean/BadSplitFrameAxiom.txt}
 \begin{lstlisting}[caption={Frame Axiom X},label=list:BadFrame]
 \end{lstlisting}
 The last few changes are a second line for the initial readout of the level in lines 4 and 5, a few updates to the integrity constraints in lines 24 and 25 and a slightly different goal definition using the split coordinates.
 %Here is another encoding, following a common ASP planning technique that aims to reduce ground instances. By splitting the horizontal and vertical coordinates, the program does not have to ground all combinations ($dimX * dimY$) of coordinates, but just each coordinate by itself (totaling $dimX + dimY$).% only grounds $(dimX + dimY) * horizon * N$ different positions instead of $dimX * dimY * horizon * N$.
 
-\subsection{Optimizations}
+\subsection{Strategies}
 
 \subsubsection{Deadlock Detection}
 
@@ -106,47 +110,38 @@ The last few changes are a second line for the initial readout of the level in l
 \begin{lstlisting}[caption={Forbidden Fields},label=list:Forbidden]
 \end{lstlisting}
 
-Whenever an AI tries to solve a planning problem with a naive encoding, it does not have the meta reasoning a human would have \cite{BoteaHeuristicsVsPlanning}, \cite{SokoRelevanceCuts}. This means it cannot see whether a move is worthless before it calculates its effect. So it has to play through all possible sequences of moves, even those where the first few moves already destroy any chance to satisfy the level. Those gamestates from which no solution can be reached are called deadlocks. A search tree can be greatly reduced if one were to remove all deadlocked branches. The difficulty is that some deadlocks are very hard to notice and sometimes it takes more time eliminating the deadlock than to explore the search tree without eliminating. This is why my deadlock detection approach removes only deadlocks, that are easy to check for. There are three different approaches I tried to remove deadlocks. The Forbidden Fields optimization (listing \ref{list:Forbidden}) works by generating a list of forbidden fields. Those fields are creating deadlocks when the player pushes a box onto them. This approach has the benefit of having a lot of fields that one can exclude from all solution pathways. Those fields are deduced in the \#static part of the program, i.e. they are only grounded once and do not change over the timesteps in a level instance.
+Whenever an AI tries to solve a planning problem with a naive encoding, it does not have the meta reasoning a human would have \cite{BoteaHeuristicsVsPlanning}, \cite{SokoRelevanceCuts}. This means it cannot see whether a move is worthless before it calculates its effect. So it has to play through all possible sequences of moves, even those where the first few moves already destroy any chance to satisfy the level. Those gamestates from which no solution can be reached are called deadlocks. A search tree can be greatly reduced if one were to remove all deadlocked branches. The difficulty is that some deadlocks are very hard to notice and sometimes it takes more time eliminating the deadlock than to explore the search tree without eliminating. This is why my deadlock detection approach removes only deadlocks, that are easy to check for. There are three different approaches I tried to remove deadlocks. The Forbidden Fields strategy (listing \ref{list:Forbidden}) works by generating a list of forbidden fields. Those fields are creating deadlocks when the player pushes a box onto them. This approach has the benefit of having a lot of fields that one can exclude from all solution pathways. Those fields are deduced in the \#static part of the program, i.e. they are only grounded once and do not change over the timesteps in a level instance.
 The disadvantage of this approach is the rather long time it takes to find all forbidden fields. Furthermore the approach is suited for levels that do not have any restrictions on how they are constructed. As I am looking into levels having a very specific structure (see \ref{IntroStr}), this implementation is not the best approach. In rectangular levels there is an easier way to express a very similar deadlock detection, see next paragraph.
 
 \lstinputlisting{../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp}
 \begin{lstlisting}[caption={Deadlock check},label=list:WBT]
 \end{lstlisting}
 
-This approach can be seen in listing \ref{list:WBT}. This optimization works best in rectangular levels by simplifying the forbidden check for this special case. The implementaion does not look at tunnels or similar structures but only checks for the outermost lines and rows. When a box is pushed into one of those lines or rows one will not be able to remove it from that line or row. So the idea is to compare the number of boxes in an outermost line or row to the number of targets in it. If the number of boxes exceeds the number of targets the level cannot be satisfied anymore. The result is a very slim check which can help to greatly reduce a search tree.
+This approach can be seen in listing \ref{list:WBT}. This strategy works best in rectangular levels by simplifying the forbidden check for this special case. The implementaion does not look at tunnels or similar structures but only checks for the outermost lines and rows. When a box is pushed into one of those lines or rows one will not be able to remove it from that line or row. So the idea is to compare the number of boxes in an outermost line or row to the number of targets in it. If the number of boxes exceeds the number of targets the level cannot be satisfied anymore. The result is a very slim check which can help to greatly reduce a search tree.
 
 \lstinputlisting{../EncodingsClean/Optimizations/Clutter.optimization.lp}
 \begin{lstlisting}[caption={Clutter},label=list:Clutter]
 \end{lstlisting}
 
-My third approach to deadlock detection (see listing \ref{list:Clutter}) recognizes a "clutter" of boxes (see Fig. \ref{fig:clutter}). This is a 2x2 square where each field is either a box or a wall, which would imply that all those boxes would have to stay in their places. In line 8 of the optimization we can see that the box D does not have a target underneath, which qualifies the situation to be a deadlock. This type of deadlock happens a lot in crammed levels with a high box to field ratio. Those very common deadlocks are very important to find and remove to reduce the search tree in those levels efficiently.
+My third approach to deadlock detection (see listing \ref{list:Clutter}) recognizes a "clutter" of boxes (see Fig. \ref{fig:clutter}). This is a 2x2 square where each field is either a box or a wall, which would imply that all those boxes would have to stay in their places. In line 8 of the strategy implementation we can see that the box D does not have a target underneath, which qualifies the situation to be a deadlock. This type of deadlock happens a lot in crammed levels with a high box to field ratio. Those very common deadlocks are very important to find and remove to reduce the search tree in those levels efficiently.
 
 \subsubsection{Move Evaluation}
 
-In the following I will show two more optimizations working with move evaluation. This means eliminating movies that will not be relevant for a shortest plan.
+In the following I will show two more strategies working with move evaluation. This means eliminating moves that will not be relevant for a shortest plan.
 
 \lstinputlisting{../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp}
 \begin{lstlisting}[caption={Moves out of Bounds},label=list:MOOB]
 \end{lstlisting}
 
-The optimization in listing \ref{list:MOOB} is very simple but can remove a lot of moves from grounding, which would be removed after ramifications when checking integrity constraints otherwise. This is more important in levels with a high horizon constant, i.e. a long shortest plan. The optimization works by preventing all moves that would lead the player of the playable area, for instance a move to the left, while the player is at the leftmost position of the level.
+The strategy in listing \ref{list:MOOB} is very simple but can remove a lot of moves from grounding, which would be removed after ramifications when checking integrity constraints otherwise. This is more important in levels with a high horizon constant, i.e. a long shortest plan. The strategy works by preventing all moves that would lead the player of the playable area, for instance a move to the left, while the player is at the leftmost position of the level.
 
 \lstinputlisting{../EncodingsClean/Optimizations/NoTakebacks.optimization.lp}
 \begin{lstlisting}[caption={No Taking back Moves},label=list:NoTake]
 \end{lstlisting}
 
 The last move evaluation seen in listing \ref{list:NoTake} tries to recognize moves that have no effect. This is done by checking for move instances $move(DX,DY,T)$ and $move(-DX,-DY,T-1)$ where no box was moved in timestep T-1. This would imply that the player moved back and forth without actually changing the gamestate, which means the plan is not relevant for finding the shortest plan in the level instance.
-
-\section{Evaluation}
-
-
-\section{Experiments and Results}
-
-
-\chapter{Results}
-\section{Tests}
-\section{Findings}
-\section{Discussion of Results}
+\chapter{Evaluation}
+\chapter{Discussion}
 compare chapter Related Work with chapter My Work \cite{LifschitzASP}
 
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.24)  18 SEP 2018 22:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.8.24)  2 OCT 2018 15:43
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -204,48 +204,53 @@ Chapter 1.
 
 ]
 Chapter 2.
-<./images/SokobanLevel1.png, id=17, 1262.7175pt x 727.71875pt>
+<./images/SokobanLevel1.png, id=17, 1336.995pt x 865.2325pt>
 File: ./images/SokobanLevel1.png Graphic file (type png)
 
 <use ./images/SokobanLevel1.png>
 Package pdftex.def Info: ./images/SokobanLevel1.png used on input line 28.
-(pdftex.def)             Requested size: 252.53903pt x 145.54117pt.
+(pdftex.def)             Requested size: 267.39426pt x 173.04343pt.
  [3
 
- <./images/SokobanLevel1.png>] [4]
+ <./images/SokobanLevel1.png (PNG copy)>]
+[4]
 Chapter 3.
-<./images/flipped,deadlockexample.png, id=25, 1262.7175pt x 727.71875pt>
+<./images/flipped,deadlockexample.png, id=25, 1336.995pt x 865.2325pt>
 File: ./images/flipped,deadlockexample.png Graphic file (type png)
 
 <use ./images/flipped,deadlockexample.png>
 Package pdftex.def Info: ./images/flipped,deadlockexample.png used on input lin
 e 41.
-(pdftex.def)             Requested size: 252.53903pt x 145.54117pt.
+(pdftex.def)             Requested size: 267.39426pt x 173.04343pt.
 
-<./images/deadlocktypes.png, id=26, 1262.7175pt x 727.71875pt>
+<./images/deadlocktypes.png, id=26, 602.25pt x 602.25pt>
 File: ./images/deadlocktypes.png Graphic file (type png)
 
 <use ./images/deadlocktypes.png>
 Package pdftex.def Info: ./images/deadlocktypes.png used on input line 47.
-(pdftex.def)             Requested size: 252.53903pt x 145.54117pt.
+(pdftex.def)             Requested size: 120.44786pt x 120.44786pt.
  [5
 
-] [6 <./images/flipped,deadlockexample.png> <./images/deadlocktypes.png>] [7]
+] [6 <./images/flipped,deadlockexample.png (PNG copy)> <./images/deadlocktypes.
+png>] [7]
 Chapter 4.
+<./images/CrookedLevel.png, id=41, 863.225pt x 642.4pt>
+File: ./images/CrookedLevel.png Graphic file (type png)
 
-LaTeX Warning: Reference `fig:levelCrooked' on page 8 undefined on input line 5
-5.
+<use ./images/CrookedLevel.png>
+Package pdftex.def Info: ./images/CrookedLevel.png used on input line 58.
+(pdftex.def)             Requested size: 172.64194pt x 128.47772pt.
+ [8
 
-<./images/Visualizer.png, id=39, 277.035pt x 165.61874pt>
+ <./images/CrookedLevel.png (PNG copy)>]
+<./images/Visualizer.png, id=45, 277.035pt x 165.61874pt>
 File: ./images/Visualizer.png Graphic file (type png)
 
 <use ./images/Visualizer.png>
-Package pdftex.def Info: ./images/Visualizer.png used on input line 63.
+Package pdftex.def Info: ./images/Visualizer.png used on input line 67.
 (pdftex.def)             Requested size: 277.03432pt x 165.61833pt.
- (../InstancesClean/Inst-A-Z20-6Halle.lp [8
-
-])
-(../EncodingsClean/SokobanPlainEncoding.lp [9 <./images/Visualizer.png>]
+ (../InstancesClean/Inst-A-Z20-6Halle.lp) [9 <./images/Visualizer.png>] (../Enc
+odingsClean/SokobanPlainEncoding.lp
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
@@ -278,9 +283,18 @@ Overfull \hbox (15.00366pt too wide) in paragraph at lines 11--13
 ][][][][] 
  []
 
-) (../EncodingsClean/SokobanIncEncoding.lp [10])
-(../EncodingsClean/SokobanSplitEncoding.lp [11])
-(../EncodingsClean/BadSplitFrameAxiom.lp) [12]
+) [10] (../EncodingsClean/SokobanIncEncoding.lp) [11]
+(../EncodingsClean/SokobanSplitEncoding.lp
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 20--22
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+
+Overfull \hbox (3.00354pt too wide) in paragraph at lines 25--27
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) [12] (../EncodingsClean/BadSplitFrameAxiom.txt)
 (../EncodingsClean/Optimizations/ForbiddenFields.optimization.lp
 Overfull \hbox (3.00354pt too wide) in paragraph at lines 1--2
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
@@ -292,12 +306,12 @@ Overfull \hbox (21.00372pt too wide) in paragraph at lines 9--10
  []
 
 )
-Overfull \hbox (15.00366pt too wide) in paragraph at lines 12--105
+Overfull \hbox (15.00366pt too wide) in paragraph at lines 12--109
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ] 
  []
 
-(../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp
+[13] (../EncodingsClean/Optimizations/WallBoxTargetCheck.optimization.lp
 Overfull \hbox (3.00354pt too wide) in paragraph at lines 1--2
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
@@ -308,30 +322,34 @@ Overfull \hbox (39.0039pt too wide) in paragraph at lines 2--3
 ][] 
  []
 
-[13]
+
 Overfull \hbox (3.00354pt too wide) in paragraph at lines 3--4
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
 )
-Overfull \hbox (39.0039pt too wide) in paragraph at lines 4--112
+Overfull \hbox (39.0039pt too wide) in paragraph at lines 4--116
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][] 
  []
 
 (../EncodingsClean/Optimizations/Clutter.optimization.lp)
 
-LaTeX Warning: Reference `fig:clutter' on page 14 undefined on input line 122.
+LaTeX Warning: Reference `fig:clutter' on page 14 undefined on input line 126.
 
-(../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp) [14]
+[14] (../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp)
 (../EncodingsClean/Optimizations/NoTakebacks.optimization.lp) [15]
 Chapter 5.
 [16
 
 ]
+Chapter 6.
+[17
+
+]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¼ in font cmr10!
- [17
+ [18
 
 ] (./Draft.aux)
 
@@ -339,13 +357,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3150 strings out of 494910
- 46283 string characters out of 6179836
- 131999 words of memory out of 5000000
- 6383 multiletter control sequences out of 15000+600000
+ 3156 strings out of 494910
+ 46424 string characters out of 6179836
+ 134009 words of memory out of 5000000
+ 6387 multiletter control sequences out of 15000+600000
  9453 words of font info for 33 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,8n,32p,1399b,1383s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,8n,32p,1399b,1070s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -354,10 +372,10 @@ mf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmti10.pfb>
-Output written on Draft.pdf (18 pages, 940798 bytes).
+Output written on Draft.pdf (19 pages, 356927 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 105 PDF objects out of 1000 (max. 8388607)
+ 69 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
