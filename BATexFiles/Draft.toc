@@ -1,3 +1,4 @@
+\select@language {ngerman}
 \contentsline {chapter}{\numberline {1}Introduction}{2}
 \contentsline {chapter}{\numberline {2}What is Sokoban}{3}
 \contentsline {section}{\numberline {2.1}Background}{3}
@@ -8,14 +9,14 @@
 \contentsline {paragraph}{Macromoves:}{5}
 \contentsline {paragraph}{Deadlock Detection:}{5}
 \contentsline {paragraph}{Relevance Cutting:}{6}
-\contentsline {chapter}{\numberline {4}My Work}{8}
-\contentsline {section}{\numberline {4.1}Encodings}{8}
-\contentsline {subsection}{\numberline {4.1.1}Fact Format}{9}
-\contentsline {subsection}{\numberline {4.1.2}Plain Encoding}{10}
-\contentsline {subsection}{\numberline {4.1.3}Incremental Encoding}{11}
-\contentsline {subsection}{\numberline {4.1.4}Split Encoding}{12}
-\contentsline {subsection}{\numberline {4.1.5}Optimizations}{13}
-\contentsline {subsubsection}{Deadlock Detection}{13}
-\contentsline {subsubsection}{Move Evaluation}{15}
-\contentsline {chapter}{\numberline {5}Evaluation}{16}
+\contentsline {chapter}{\numberline {4}My Work}{7}
+\contentsline {section}{\numberline {4.1}Encodings}{7}
+\contentsline {subsection}{\numberline {4.1.1}Fact Format}{7}
+\contentsline {subsection}{\numberline {4.1.2}Plain Encoding}{9}
+\contentsline {subsection}{\numberline {4.1.3}Incremental Encoding}{9}
+\contentsline {subsection}{\numberline {4.1.4}Split Encoding}{10}
+\contentsline {subsection}{\numberline {4.1.5}Strategies}{11}
+\contentsline {subsubsection}{Deadlock Detection}{11}
+\contentsline {subsubsection}{Move Evaluation}{13}
+\contentsline {chapter}{\numberline {5}Evaluation}{15}
 \contentsline {chapter}{\numberline {6}Discussion}{17}

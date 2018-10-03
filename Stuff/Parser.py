@@ -1,5 +1,5 @@
 def read_map():
-    f = open('Stuff/FirstLevel.lp', 'r')
+    f = open('InstancesClean/Inst-A-Z32-10Winkel.lp', 'r')
     sr = f.read()
     # f = open('atlist','r')
 

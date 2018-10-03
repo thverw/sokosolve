@@ -28,13 +28,13 @@ for file in os.listdir("Results"):
 	myfile = open(os.path.join("Results",file),"r")
 	linelist = myfile.readlines()
 	myname = os.path.basename(myfile.name)
+	print myname
 	thename = myname
-	myname = myname[7:]
-	if "Split" in myname:
-		sheet1.write(index, 0, "Split")
-		myname = myname[4:]
-	else:
-		sheet1.write(index, 0, "Plain")
+	print "heyo"
+	print myname
+	while myname[:1] in "resultsSplitInst":
+		myname = myname[1:]
+	print myname
 	if myname[:1] == "C":
 		sheet1.write(index, 1, "Clutter")
 		myname = myname[1:]
@@ -94,23 +94,36 @@ for file in os.listdir("Results"):
 		sheet1.write(index, 4, "Winkel")
 	all = string.maketrans('','')
 	nodigs = all.translate(all, string.digits)
-	if len(linelist) > 28:
-		if "UNKNOWN" not in myfile.read():
-			print thename
-			j = 0
-			while "Calls" not in linelist[j]:
-				j += 1
-			j+=1
-			i = j+3
-			sheet1.write(index, 15, linelist[j].split(' : ')[1].split(' ')[0])
-			sheet1.write(index, 8, linelist[i].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-			sheet1.write(index, 9, linelist[i+1].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-			sheet1.write(index, 10, linelist[i+2].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-			sheet1.write(index, 11, linelist[i+12].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-			sheet1.write(index, 12, linelist[i+13].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-			sheet1.write(index, 13, linelist[i+14].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-			sheet1.write(index, 14, linelist[i+15].split(' : ')[1].split(' ')[0].translate(all,nodigs))
-		if "TIME LIMIT" in myfile.read():
+	if len(linelist) > 10:
+		print thename
+		j = 0
+		while "Calls" not in linelist[j]:
+			j += 1
+		j+=1
+		sheet1.write(index, 15, linelist[j].split(' : ')[1].split(' ')[0])
+		while "Choices" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 8, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		while "Conflicts" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 9, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		while "Restarts" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 10, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		while "Atoms" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 11, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		j = j -3
+		while "Rules" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 12, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		while "Variables" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 13, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		while "Constraints" not in linelist[j]:
+			j += 1
+		sheet1.write(index, 14, linelist[j].split(' : ')[1].split(' ')[0].translate(all,nodigs))
+		if "TIME LIMIT" in linelist[5]:
 			sheet1.write(index, 7, "TIMEOUT")
 			sheet1.write(index, 15, "900s")
 		else:

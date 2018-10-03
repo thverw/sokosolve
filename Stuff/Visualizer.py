@@ -16,7 +16,7 @@ class Visualizer(QtWidgets.QApplication):
         my_grid = QtWidgets.QGridLayout()
         w.setLayout(my_grid)
 
-        f = open('Stuff/FirstLevel.lp', 'r')
+        f = open('InstancesClean/Inst-A-Z32-10Winkel.lp', 'r')
         sr = f.read()
         n = get_max(sr)
         self.redraw(my_grid, w)

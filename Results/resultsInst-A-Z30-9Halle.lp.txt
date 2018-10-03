@@ -1,0 +1,35 @@
+clingo version 5.2.2
+Reading from EncodingsClean/SokobanPlainEncoding.lp ...
+Solving...
+SATISFIABLE
+
+Models       : 1+
+Calls        : 1
+Time         : 118.265s (Solving: 0.88s 1st Model: 0.88s Unsat: 0.00s)
+CPU Time     : 88.012s
+
+Choices      : 14206   
+Conflicts    : 7076     (Analyzed: 7076)
+Restarts     : 41       (Average: 172.59 Last: 24)
+Model-Level  : 10.0    
+Problems     : 1        (Average Length: 0.00 Splits: 0)
+Lemmas       : 7076     (Deleted: 3136)
+  Binary     : 432      (Ratio:   6.11%)
+  Ternary    : 371      (Ratio:   5.24%)
+  Conflict   : 7076     (Average Length:   26.2 Ratio: 100.00%) 
+  Loop       : 0        (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0        (Average Length:    0.0 Ratio:   0.00%) 
+Backjumps    : 7076     (Average:  2.00 Max:  56 Sum:  14121)
+  Executed   : 7076     (Average:  2.00 Max:  56 Sum:  14121 Ratio: 100.00%)
+  Bounded    : 0        (Average:  0.00 Max:   0 Sum:      0 Ratio:   0.00%)
+
+Rules        : 17095575 (Original: 17095165)
+  Choice     : 70      
+Atoms        : 2261705 
+Bodies       : 16957181 (Original: 16956775)
+  Count      : 0        (Original: 90)
+Equivalences : 18954    (Atom=Atom: 772 Body=Body: 4105 Other: 14077)
+Tight        : Yes
+Variables    : 12305    (Eliminated:    0 Frozen:    0)
+Constraints  : 64721    (Binary:  79.9% Ternary:   6.9% Other:  13.2%)
+

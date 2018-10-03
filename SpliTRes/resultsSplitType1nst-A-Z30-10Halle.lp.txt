@@ -1,0 +1,30 @@
+clingo version 4.2.1
+Reading from EncodingsClean/SokobanSplitEncoding.lp ...
+Solving...
+UNKNOWN
+
+TIME LIMIT   : 1
+Models       : 0+    
+Calls        : 1
+Time         : 900.135s (Solving: 882.58s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 898.720s
+
+Choices      : 6225841
+Conflicts    : 1825749 (Analyzed: 1825749)
+Restarts     : 22     (Average: 82988.59 Last: 329589)
+Problems     : 1      (Average Length: 1.00 Splits: 0)
+Lemmas       : 1825749 (Deleted: 1687902)
+  Binary     : 33672  (Ratio:   1.84%)
+  Ternary    : 36409  (Ratio:   1.99%)
+  Conflict   : 1825749 (Average Length: 1687.5 Ratio: 100.00%) 
+  Loop       : 0      (Average Length:    0.0 Ratio:   0.00%) 
+  Other      : 0      (Average Length:    0.0 Ratio:   0.00%) 
+
+Atoms        : 38656 
+Rules        : 7817660 (1: 7817549 2: 74 3: 37)
+Bodies       : 7766733
+Equivalences : 31457  (Atom=Atom: 437 Body=Body: 1485 Other: 29535)
+Tight        : No     (SCCs: 357 Non-Hcfs: 0 Nodes: 90071 Gammas: 0)
+Variables    : 91847  (Eliminated:    0 Frozen: 88982)
+Constraints  : 603374 (Binary: 69.0% Ternary:  3.3% Other: 27.7%)
+

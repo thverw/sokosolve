@@ -1,10 +1,28 @@
-\documentclass{report}
+\documentclass[12pt,a4paper,oneside]{report}
 \title{Efficient Planning for Sokoban with Answer Set Programming - A Case Study}
 \author{Thomas Verweyen}
-\date{\today}
+\date{30.09.2018}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
 \usepackage{listings}
+\lstdefinelanguage{clingo}{
+  keywordstyle=[1]\usefont{OT1}{cmtt}{m}{n},%
+  keywordstyle=[2]\textbf,%
+  keywordstyle=[3]\usefont{OT1}{cmtt}{m}{n},%\textit
+  alsoletter={\#,\&},% 
+keywords=[1]{not,from,import,def,if,else,return,while,break,and,or,for,in,del,and,class},% 
+keywords=[2]{\#const,\#show,\#minimize,\#base,\#theory,\#count,\#external,\#program,\#script,\#end,\#heuristic,\#edge,\#project,\#show},%
+  keywords=[3]{&,&dom,&sum,&diff,&show,&minimize},%
+  morecomment=[l]{\#\ },%
+  morecomment=[l]{\%\ },%
+  commentstyle={\color{darkgray}}%
+}
+\lstset{numbers=left,numberblanklines=false,basicstyle=\ttfamily\footnotesize,language=clingo}
+\usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{titlesec}
+\usepackage[top=1.25in, bottom=1in, left=4cm, right=3.1cm]{geometry}
 \graphicspath{{./images/}}
 \usepackage{color}
 %\lstset{numbers=left,
@@ -15,7 +33,7 @@
 %commentstyle=\color{green}}
 \begin{document}
 \maketitle
-\renewcommand*\contentsname{Summary}
+\renewcommand*\contentsname{Table of Contents}
 \tableofcontents
 \section*{Abstract}
 \chapter{Introduction}
@@ -33,7 +51,7 @@ Figure \ref{fig:1} illustrates the first Sokoban level of the original set of le
 In many of the levels created to this date, the warehouse has a lot of small passageways and very intricate designs. In this thesis I will look at more open level designs, e.g. rectangular levels.
 Sokoban is a very difficult planning problem for multiple reasons. There are a lot of possibilities to create a deadlock (a gamestate from which no solution can be found), the branching factor is large and the optimal solution can be very long \cite{BoteaHeuristicsVsPlanning}.
 \chapter{Related Work}
-\paragraph{Complexity:} Gordon Wilfong published in 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard}. He proved this by reducing $3$-$Sat$ to such a problem. The question whether Sokoban is PSPACE-complete remained open until 1997, when Joseph C. Culberson published his paper "Sokoban is PSPACE-complete" \cite{PSpaceComplete}. He found a transformation algorithm to transform an LBA into a level of Sokoban, with the solution to the level having a number of steps in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made.
+\paragraph{Complexity:} Gordon Wilfong published in 1991 that all motion planning problems with moving obstacles are NP-hard \cite{WilfongNPhard}. He proved this by reducing $3$-$Sat$ to such a problem. The question whether Sokoban is PSPACE-complete remained open until 1997, when Joseph C. Culberson published his paper 'Sokoban is PSPACE-complete' \cite{PSpaceComplete}. He found a transformation algorithm to transform an LBA into a level of Sokoban, with the solution to the level having a number of steps in $\Theta (|w|+t(|w|))$, where $w$ is the input and $t(|w|)$ is the amount of transitions the LBA made.
 \paragraph{Approaches:} There are loads of different researches regarding approaches to Sokoban. I decided which to show. Botea et al. found out that heuristics, while significantly improving chess AI, do not seem to help for planning the soko puzzle \cite{BoteaHeuristicsVsPlanning}. Planning would be a better approach. So to get there and create good plans like humans would, the solver will start meta-reasoning by recognizing rooms and tunnels. Then using those rooms and tunnels to create a plan where first a way is found to bring the crates from the room where theyre at to the target room. Then another plan is made to organize crates in a room.
 \paragraph{Macromoves:} Macromoves are a planning strategy that is so successful it is implemented in several good Sokoban solvers. The best example would be Rolling Stone, an excellent Sokoban solver, with a lot of optimizations and strategies implemented. One of the strategies is the possibility to create macromoves for tunnels to collapse all states in the tunnel into one or two different states, reducing the search space severely \cite{SokoRelevanceCuts}.
 \begin{figure}[ht]
@@ -52,7 +70,7 @@ Sokoban is a very difficult planning problem for multiple reasons. There are a l
 Detecting deadlocks the moment they appear is a very powerful solution strategy, for the reason that huge parts of the search tree can be eliminated early on, without further looking into them \cite{SokoRelevanceCuts}. The problem with this strategy is that deadlocks can be very hard to detect, e.g. when they consist of multiple boxes blocking each other in some kind of tunnelsystem. Deadlocks are easier to detect and remove from the search tree when the domain is restricted. When looking at levels with a rectangular shape there are four common deadlocks, cp. Fig. \ref{fig:3} .
 \paragraph{Relevance Cutting:} A basic AI to solve a planning problem like Sokoban will look at all possible ways to move around the level, but some of those are dubious but legal or just plain irrelevant. In a lot of cases those dubious ways do not lead to an optimal solution, but of course a problem can be constructed where the optimal solution can only be found when looking at those dubious cases. So Junghanns and Schaeffer tried to teach their AI meta-reasoning to give it the ability to know when to look at those dubious ways and when to ignore them. This they did by creating an influence measurement and only taking moves that are influenced by prior moves, to prevent actions that are disembodied from all prior moves. This is used in the popular Sokoban solver Rolling Stone which has an excellent record in solving Sokoban problems \cite{SokoRelevanceCuts}.
 \chapter{My Work}
-In my work I decided to research Sokoban planning with Answer Set Programming (ASP), a logic programming system designed to return answer sets to queries \cite{LifschitzASP}. I created different basic encodings and strategy implementations in a modular fashion. Those I will present to you in this chapter. Additionally I created a level portfolio, corresponding to different qualitative properties, e.g. level dimensions or number of boxes, and quantitative properties e.g. a seperation of the level into a zone where all the boxes are placed and a zone where all the targets are placed. The levels have two different types of structures. The first type is a rectangular level with the X and Y dimension differing by 1. The second type is created by connecting 2x2 fields at their edges, see \ref{fig:levelCrooked}.
+In my work I decided to research Sokoban planning with Answer Set Programming (ASP), a logic programming system designed to return answer sets to queries \cite{LifschitzASP}. I created different basic encodings and strategy implementations in a modular fashion. Those I will present to you in this chapter. Additionally I created a level portfolio, corresponding to different qualitative properties, e.g. level dimensions or number of boxes, and quantitative properties e.g. a seperation of the level into a zone where all the boxes are placed and a zone where all the targets are placed. The levels have two different types of structures. The first type is a rectangular level with the X and Y dimension differing by 1. The second type is created by connecting $2 \times 2$ fields at their edges, see \ref{fig:levelCrooked}.
 \begin{figure}[ht]
 \centering
 \includegraphics[scale=0.2]{CrookedLevel}
@@ -79,23 +97,24 @@ Finally the constant horizon stores the information how many steps are needed to
 \begin{lstlisting}[caption={Plain Encoding},label=list:PlainEnc]
 \end{lstlisting}
 The plain encoding seen in listing \ref{list:PlainEnc} uses a strategy common in ASP planning. A choice rule picks the moves (l.6) and the succeeding states are derived from those by using effect and frame axioms (ll.8-11).
-In the first few lines basic information is created, namely a $time/1$ predicate for each timestep (l.1), a $dir/2$ predicate for each of the four possible directions to move in (l.3) and an $at/4$ predicate to set the initial positions of objects as their position at time T=0.
+In the first few lines basic information is created, namely a $time/1$ predicate for each timestep (l.1), a $dir/2$ predicate for each of the four possible directions to move in (l.3) and an $at/4$ predicate to set the initial positions of objects as their position at time $T=0$.
 Additionally the encoding needs integrity constraints to ensure that the plans found are legal. There is one in line 13 that ensures that no object can move off the playable area and another in line 14 that prevents two object from being at the some position at the same time.
 In the lines 16 and 17 the goal condition is defined. The $box/2$ predicate is only created at the last timestep to specify each box position (X,Y). The constraint in line 17 stipulates that all targets have to have a corresponding box predicate with the same coordinates.
 The added directive \textbf{\#show at/4.} in line 21 allows for using clingos output as input to my Visualizer \textit{SokoViz}.
 This encoding allows to check for a plan of length equal to the horizon constant. This is of course not always optimal, e.g. when one wants to know a shortest plan to solve a level. To achieve an encoding that is able to, I will take advantage of incremental solving.
+\\
 \subsection{Incremental Encoding} \label{IncEnc}
 \lstinputlisting{../EncodingsClean/SokobanIncEncoding.lp}
 \begin{lstlisting}[caption={Incremental Encoding},label=list:IncEnc]
 \end{lstlisting}
 $clingo$ provides an easy to use built-in incremental solving  and grounding mode. An encoding using the inc-mode can be seen in listing \ref{list:IncEnc}. It is very similar to the plain encoding from listing \ref{list:PlainEnc} in having the same structure of a choice rule picking the moves and effect and frame axioms finding the successive state. This encoding is split into three parts, which is critical for using the inc-mode. The \#program base part has only information that is created in the very beginning and will be unchanged throughout the whole grounding and solving process. This infomation is called \#static. The \#program step(t) part is the part accumulating knowledge, holding rules that will be collected and used for each step t and all following steps. The last part \#program check(t) holds volatile rules which will be checked once and discarded for the next timestep. Those rules are used to check for success and are no help to solving following steps.
 There is a minor change in the goal defining lines. In the plain encoding the horizon can be used to check efficiently only for the last timestep. In the incremental encoding I carry the time in the $box/3$ prediate to ensure that the constraint in line 21 only affects the target at time t.
-
+\\
 \subsection{Split Encoding}
 \lstinputlisting{../EncodingsClean/SokobanSplitEncoding.lp}
 \begin{lstlisting}[caption={Split Encoding},label=list:SplitEnc]
 \end{lstlisting}
-The split encoding uses a technique common in ASP planning. When all coordinates are split into a vertical and a horizontal information the grounder does not have to ground all combinations of coordinates ($X * Y$) but only the sum of coordinates ($X + Y$). This has the advantage of less ground instances, but the disadvantage of a harder solving process. Just compare the ramifications in the plain encoding those in the split encoding. The plain encoding can deal with all ramifications in just three rules, while the split encoding needs ten rules. Obviously when splitting the coordinates into horizontal and vertical the rules deriving the new coordinates have to be twice as many. The other problem is that it is harder to find out whether two objects meet each other at a time. That is why the two frame axioms, signifying that boxes that are not touched do not move, have aggregates (ll.17-20). Those are used for simplifying complex rules; the first rule without the aggregates can be seen in listing \ref{list:BadFrame}.
+The split encoding uses a technique common in ASP planning. When all coordinates are split into a vertical and a horizontal information the grounder does not have to ground all combinations of coordinates ($X \cdot Y$) but only the sum of coordinates ($X + Y$). This has the advantage of less ground instances, but the disadvantage of a harder solving process. Just compare the ramifications in the plain encoding those in the split encoding. The plain encoding can deal with all ramifications in just three rules, while the split encoding needs ten rules. Obviously when splitting the coordinates into horizontal and vertical the rules deriving the new coordinates have to be twice as many. The other problem is that it is harder to find out whether two objects meet each other at a time. That is why the two frame axioms, signifying that boxes that are not touched do not move, have aggregates (ll.17-20). Those are used for simplifying complex rules; the first rule without the aggregates can be seen in listing \ref{list:BadFrame}.
 \lstinputlisting{../EncodingsClean/BadSplitFrameAxiom.txt}
 \begin{lstlisting}[caption={Frame Axiom X},label=list:BadFrame]
 \end{lstlisting}
@@ -123,8 +142,15 @@ This approach can be seen in listing \ref{list:WBT}. This strategy works best in
 \begin{lstlisting}[caption={Clutter},label=list:Clutter]
 \end{lstlisting}
 
-My third approach to deadlock detection (see listing \ref{list:Clutter}) recognizes a "clutter" of boxes (see Fig. \ref{fig:clutter}). This is a 2x2 square where each field is either a box or a wall, which would imply that all those boxes would have to stay in their places. In line 8 of the strategy implementation we can see that the box D does not have a target underneath, which qualifies the situation to be a deadlock. This type of deadlock happens a lot in crammed levels with a high box to field ratio. Those very common deadlocks are very important to find and remove to reduce the search tree in those levels efficiently.
+\begin{figure}[ht]
+\centering
+\includegraphics[scale=0.2]{deadlocktypes}
+\caption{'Clutter' in four configurations}
+\label{fig:clutter}
+\end{figure}
 
+My third approach to deadlock detection (see listing \ref{list:Clutter}) recognizes a 'clutter' of boxes (see Fig. \ref{fig:clutter}). This is a $2 \times 2$ square where each field is either a box or a wall, which would imply that all those boxes would have to stay in their places. In line 8 of the strategy implementation we can see that the box D does not have a target underneath, which qualifies the situation to be a deadlock. This type of deadlock happens a lot in crammed levels with a high box to field ratio. Those very common deadlocks are very important to find and remove to reduce the search tree in those levels efficiently.
+\\
 \subsubsection{Move Evaluation}
 
 In the following I will show two more strategies working with move evaluation. This means eliminating moves that will not be relevant for a shortest plan.
@@ -139,8 +165,56 @@ The strategy in listing \ref{list:MOOB} is very simple but can remove a lot of m
 \begin{lstlisting}[caption={No Taking back Moves},label=list:NoTake]
 \end{lstlisting}
 
-The last move evaluation seen in listing \ref{list:NoTake} tries to recognize moves that have no effect. This is done by checking for move instances $move(DX,DY,T)$ and $move(-DX,-DY,T-1)$ where no box was moved in timestep T-1. This would imply that the player moved back and forth without actually changing the gamestate, which means the plan is not relevant for finding the shortest plan in the level instance.
+The last move evaluation seen in listing \ref{list:NoTake} tries to recognize moves that have no effect. This is done by checking for move instances $move(DX,DY,T)$ and $move(-DX,-DY,T-1)$ where no box was moved in timestep $T-1$. This would imply that the player moved back and forth without actually changing the gamestate, which means the plan is not relevant for finding the shortest plan in the level instance.
 \chapter{Evaluation}
+\begin{table}[]
+\begin{tabular}{l|l|l|l|l|l|l|}
+\cline{2-7}
+                                  & \multicolumn{6}{l|}{Rectangular}                              \\ \cline{2-7} 
+                                  & \multicolumn{3}{l|}{Small} & \multicolumn{3}{l|}{Large} \\ \hline
+\multicolumn{1}{|l|}{\# of Boxes} & 4      & 5       & 6       & 6          & 8     & 10    \\ \hline
+\multicolumn{1}{|l|}{Basic}       & 2.97   & 34.157  & 10.615  & 46.283     & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{Clutter}     & 0.473  & 56.87   & 5.067   & 10.528     & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{FF}          & 2.946  & 29.984  & 9.566   & 40.181     & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{MOOB}        & 1.623  & 21.301  & 6.717   & 139.57     & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{NTB}         & 1.051  & 57.824  & 14.575  & 151.681    & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{WBTC}        & 2.655  & 30.85   & 9.611   & 42.185     & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{Type1}       & 0.525  & 24.504  & 4.483   & 76.499     & 900   & 900   \\ \hline
+\multicolumn{1}{|l|}{Type2}       & 0.523  & 24.728  & 4.483   & 78.336     & 900   & 900   \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[]
+\begin{tabular}{l|l|l|l|l|l|l|}
+\cline{2-7}
+                                  & \multicolumn{6}{l|}{Non-Rectangular}                             \\ \cline{2-7} 
+                                  & \multicolumn{3}{l|}{Small} & \multicolumn{3}{l|}{Large} \\ \hline
+\multicolumn{1}{|l|}{\# of Boxes} & 4       & 5       & 6      & 6       & 8       & 10     \\ \hline
+\multicolumn{1}{|l|}{Basic}       & 2.648   & 8.132   & 2.655  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{Clutter}     & 1.1     & 3.107   & 2.127  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{FF}          & 2.234   & 8.054   & 2.473  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{MOOB}        & 2.23    & 7.953   & 2.466  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{NTB}         & 2.132   & 5.635   & 1.914  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{WBTC}        & 2.166   & 8.167   & 2.423  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{Type1}       & 1.496   & 4.736   & 2.285  & 900     & 900     & 900    \\ \hline
+\multicolumn{1}{|l|}{Type2}       & 1.513   & 4.739   & 2.264  & 900     & 900     & 900    \\ \hline
+\end{tabular}
+\end{table}
+\begin{table}[]
+\begin{tabular}{l|l|l|l|l|l|}
+\cline{2-6}
+                              & \multicolumn{3}{l|}{Rectangular}         & \multicolumn{2}{l|}{Non-Rectangular} \\ \cline{2-6} 
+                              & \multicolumn{2}{l|}{Small} & Large & \multicolumn{2}{l|}{Small}       \\ \hline
+\multicolumn{1}{|l|}{\# of Boxes} & 5            & 8           & 10    & 4            & 5            \\ \hline
+\multicolumn{1}{|l|}{Basic}   & 535.227      & 900         & 900   & 54.624       & 57.636       \\ \hline
+\multicolumn{1}{|l|}{Clutter} & 193.626      & 900.031     & 900   & 26.104       & 26.351       \\ \hline
+\multicolumn{1}{|l|}{FF}      & 586.862      & 900.007     & 900   & 51.58        & 52.374       \\ \hline
+\multicolumn{1}{|l|}{MOOB}    & 305.945      & 900.013     & 900   & 51.586       & 52.889       \\ \hline
+\multicolumn{1}{|l|}{NTB}     & 309.895      & 900.009     & 900   & 110.652      & 121.758      \\ \hline
+\multicolumn{1}{|l|}{WBTC}    & 605.187      & 900.011     & 900   & 52.459       & 53.125       \\ \hline
+\multicolumn{1}{|l|}{Type1}   & 38.671       & 534.863     & 900   & 35.324       & 35.413       \\ \hline
+\multicolumn{1}{|l|}{Type2}   & 39.421       & 536.912     & 900   & 35.213       & 35.237       \\ \hline
+\end{tabular}
+\end{table}
 \chapter{Discussion}
 compare chapter Related Work with chapter My Work \cite{LifschitzASP}
 
@@ -213,5 +287,9 @@ Gordon Wilfong,
 Annals of Mathematics and Artificial Intelligence, 1991.
 \end{thebibliography}
 
+\newpage
+\chapter*{Selbstständigkeitserklärung}
+\newpage
+\chapter*{Danksagung}
 
 \end{document}
