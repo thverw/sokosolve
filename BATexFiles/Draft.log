@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.3)  3 OCT 2018 15:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.3)  3 OCT 2018 15:17
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -334,24 +334,6 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
-Package: babel 2016/02/24 3.9q The Babel package
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngerman.ldf
-Language: ngerman 2013/12/13 v2.7 German support for babel (new orthography)
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel-german/ngermanb.ldf
-Language: ngermanb 2013/12/13 v2.7 German support for babel (new orthography)
-
-(/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
-File: babel.def 2016/02/24 3.9q Babel common definitions
-\babel@savecnt=\count88
-\U@D=\dimen103
-)
-\l@naustrian = a dialect from \language\l@ngerman 
-\l@nswissgerman = a dialect from \language\l@ngerman 
-Package babel Info: Making " an active character on input line 88.
-)))
 (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
@@ -364,23 +346,23 @@ LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-\lst@mode=\count89
+\lst@mode=\count88
 \lst@gtempboxa=\box26
 \lst@token=\toks17
-\lst@length=\count90
-\lst@currlwidth=\dimen104
-\lst@column=\count91
-\lst@pos=\count92
-\lst@lostspace=\dimen105
-\lst@width=\dimen106
-\lst@newlines=\count93
-\lst@lineno=\count94
-\lst@maxwidth=\dimen107
+\lst@length=\count89
+\lst@currlwidth=\dimen103
+\lst@column=\count90
+\lst@pos=\count91
+\lst@lostspace=\dimen104
+\lst@width=\dimen105
+\lst@newlines=\count92
+\lst@lineno=\count93
+\lst@maxwidth=\dimen106
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count95
-\lst@skipnumbers=\count96
+\c@lstnumber=\count94
+\lst@skipnumbers=\count95
 \lst@framebox=\box27
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
@@ -389,7 +371,7 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
-\bigstrutjot=\dimen108
+\bigstrutjot=\dimen107
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
@@ -414,22 +396,22 @@ Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count97
+\Gread@gobject=\count96
 ))
-\Gin@req@height=\dimen109
-\Gin@req@width=\dimen110
+\Gin@req@height=\dimen108
+\Gin@req@width=\dimen109
 )
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2016/03/15 v2.10.1 Sectioning titles
 \ttl@box=\box28
 \beforetitleunit=\skip43
 \aftertitleunit=\skip44
-\ttl@plus=\dimen111
-\ttl@minus=\dimen112
+\ttl@plus=\dimen110
+\ttl@minus=\dimen111
 \ttl@toksa=\toks18
-\titlewidth=\dimen113
-\titlewidthlast=\dimen114
-\titlewidthfirst=\dimen115
+\titlewidth=\dimen112
+\titlewidthlast=\dimen113
+\titlewidthfirst=\dimen114
 )
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
@@ -445,17 +427,17 @@ Package ifvtex Info: VTeX not detected.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count98
-\Gm@cntv=\count99
-\c@Gm@tempcnt=\count100
-\Gm@bindingoffset=\dimen116
-\Gm@wd@mp=\dimen117
-\Gm@odd@mp=\dimen118
-\Gm@even@mp=\dimen119
-\Gm@layoutwidth=\dimen120
-\Gm@layoutheight=\dimen121
-\Gm@layouthoffset=\dimen122
-\Gm@layoutvoffset=\dimen123
+\Gm@cnth=\count97
+\Gm@cntv=\count98
+\c@Gm@tempcnt=\count99
+\Gm@bindingoffset=\dimen115
+\Gm@wd@mp=\dimen116
+\Gm@odd@mp=\dimen117
+\Gm@even@mp=\dimen118
+\Gm@layoutwidth=\dimen119
+\Gm@layoutheight=\dimen120
+\Gm@layouthoffset=\dimen121
+\Gm@layoutvoffset=\dimen122
 \Gm@dimlist=\toks19
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
@@ -480,20 +462,20 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 34.
 LaTeX Font Info:    ... okay on input line 34.
-\c@lstlisting=\count101
+\c@lstlisting=\count100
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count102
-\scratchdimen=\dimen124
+\scratchcounter=\count101
+\scratchdimen=\dimen123
 \scratchbox=\box29
-\nofMPsegments=\count103
-\nofMParguments=\count104
+\nofMPsegments=\count102
+\nofMParguments=\count103
 \everyMPshowfont=\toks20
-\MPscratchCnt=\count105
-\MPscratchDim=\dimen125
-\MPnumerator=\count106
-\makeMPintoPDFobject=\count107
+\MPscratchCnt=\count104
+\MPscratchDim=\dimen124
+\MPnumerator=\count105
+\makeMPintoPDFobject=\count106
 \everyMPtoPDFconversion=\toks21
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -593,11 +575,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
  [1
 
 ]
-Kapitel 1.
+Chapter 1.
 [2
 
 ]
-Kapitel 2.
+Chapter 2.
 <./images/SokobanLevel1.png, id=18, 1336.995pt x 865.2325pt>
 File: ./images/SokobanLevel1.png Graphic file (type png)
 
@@ -608,7 +590,7 @@ Package pdftex.def Info: ./images/SokobanLevel1.png used on input line 46.
 
  <./images/SokobanLevel1.png (PNG copy)>]
 [4]
-Kapitel 3.
+Chapter 3.
 <./images/flipped,deadlockexample.png, id=26, 1336.995pt x 865.2325pt>
 File: ./images/flipped,deadlockexample.png Graphic file (type png)
 
@@ -627,7 +609,7 @@ Package pdftex.def Info: ./images/deadlocktypes.png used on input line 65.
 
 ] [6 <./images/flipped,deadlockexample.png (PNG copy)> <./images/deadlocktypes.
 png>]
-Kapitel 4.
+Chapter 4.
 <./images/CrookedLevel.png, id=40, 863.225pt x 642.4pt>
 File: ./images/CrookedLevel.png Graphic file (type png)
 
@@ -693,7 +675,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 152--154
 
 (../EncodingsClean/Optimizations/MovesOutOfBounds.optimization.lp) [13]
 (../EncodingsClean/Optimizations/NoTakebacks.optimization.lp) [14]
-Kapitel 5.
+Chapter 5.
 
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 170.
@@ -709,7 +691,7 @@ LaTeX Warning: No positions in optional float specifier.
 [15
 
 ] [16]
-Kapitel 6.
+Chapter 6.
 [17
 
 ] [18
@@ -720,13 +702,13 @@ Kapitel 6.
 
 ] (./Draft.aux) ) 
 Here is how much of TeX's memory you used:
- 5206 strings out of 494860
- 69257 string characters out of 6177602
- 159003 words of memory out of 5000000
- 8395 multiletter control sequences out of 15000+600000
+ 4740 strings out of 494860
+ 63210 string characters out of 6177602
+ 147219 words of memory out of 5000000
+ 7946 multiletter control sequences out of 15000+600000
  16476 words of font info for 40 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,9n,40p,1395b,1625s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,9n,40p,1395b,1614s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/thomas/.texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000
 .600pk> </home/thomas/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> </
 home/thomas/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/thoma
@@ -740,9 +722,9 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Draft.pdf (21 pages, 395606 bytes).
+Output written on Draft.pdf (21 pages, 394868 bytes).
 PDF statistics:
- 492 PDF objects out of 1000 (max. 8388607)
+ 490 PDF objects out of 1000 (max. 8388607)
  101 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
